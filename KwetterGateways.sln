@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kwetter.UserGateway", "Kwetter.UserGateway\Kwetter.UserGateway.csproj", "{C1F3473E-403C-48F7-B57F-9326A670A03E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.UserGateway", "Kwetter.UserGateway\Kwetter.UserGateway.csproj", "{C1F3473E-403C-48F7-B57F-9326A670A03E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kwetter.ModerationGateway", "Kwetter.ModerationGateway\Kwetter.ModerationGateway.csproj", "{69D0CBD6-6806-462A-8AA5-AF7072228D12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.ModerationGateway", "Kwetter.ModerationGateway\Kwetter.ModerationGateway.csproj", "{69D0CBD6-6806-462A-8AA5-AF7072228D12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kwetter.ServiceLayer", "Kwetter.ServiceLayer\Kwetter.ServiceLayer.csproj", "{1E1DF684-1D20-463B-80AC-2905CF0C6C41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E1DF684-1D20-463B-80AC-2905CF0C6C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E1DF684-1D20-463B-80AC-2905CF0C6C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E1DF684-1D20-463B-80AC-2905CF0C6C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E1DF684-1D20-463B-80AC-2905CF0C6C41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
