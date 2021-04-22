@@ -4,4 +4,21 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Service\Protos\authentication.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Service\Protos\authentication.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Factory\" />
+  </ItemGroup>
+
 </Project>

@@ -1,3 +1,5 @@
+using Kwetter.ServiceLayer.Managers;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,8 @@ namespace Kwetter.UserGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<AuthenticationManager>();
+            services.AddTransient<AuthenticationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
