@@ -12,6 +12,7 @@ namespace Kwetter.UserGateway.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        
         public AccountController()
         {
 

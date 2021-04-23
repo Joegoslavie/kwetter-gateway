@@ -1,6 +1,7 @@
 ﻿using Kwetter.ServiceLayer.Manager;
-using Kwetter.ServiceLayer.Managers;
+using Kwetter.ServiceLayer.Model;
 using Kwetter.ServiceLayer.Validation;
+using Kwetter.UserGateway.VIewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,9 +17,16 @@ namespace Kwetter.UserGateway.Controllers
     [ApiController] 
     public class AuthenticationController : ControllerBase
     {
+        /// <summary>
+        /// Logger instance for this controller.
+        /// </summary>
         private readonly ILogger<AuthenticationController> logger;
 
+        /// <summary>
+        /// Authentication manager for auth related operations.
+        /// </summary>
         private readonly AuthenticationManager manager = null;
+
 
         public AuthenticationController(ILogger<AuthenticationController> logger, AuthenticationManager manager)
         {
@@ -28,37 +36,44 @@ namespace Kwetter.UserGateway.Controllers
 
         // POST api/<AuthenticationController>
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] string username, string password)
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             try
             {
-                AuthenticationValidation.ValidateUsername(username);
-                AuthenticationValidation.ValidatePassword(password);
-                var token = await this.manager.TrySignIn(username, password).ConfigureAwait(false);
+                AuthenticationValidation.ValidateUsername(model.Username);
+                AuthenticationValidation.ValidatePassword(model.Password);
+                var token = await this.manager.TrySignIn(model.Username, model.Password).ConfigureAwait(false);
                 return Ok(token);
             }
             catch (ArgumentException ex)
             {
                 this.logger.LogError("Exception occurred in register function", ex);
-                throw;
+                return BadRequest("Failed to authenticate account");
             }
         }
 
-        // POST api/<AuthenticationController>
+        //POST api/<AuthenticationController>
         [HttpPost]
-        public void Register([FromBody] string username, string password, string verifyPassword)
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             try
             {
-                AuthenticationValidation.ValidateUsername(username);
-                AuthenticationValidation.ValidatePassword(password, verifyPassword);
+                AuthenticationValidation.ValidateUsername(model.Username);
+                AuthenticationValidation.ValidatePassword(model.Password, model.PasswordRepeated);
 
-                this.manager.TrySignUp(username, password);
+                var registerState = await this.manager.TrySignUp(model.Username, model.Password).ConfigureAwait(false);
+                if(registerState)
+                {
+                    return Ok("Succesfully registered");
+                }
+                return Ok("Failure noob");
             }
             catch (Exception ex)
             {
                 this.logger.LogError("Exception occurred in login function", ex);
-                throw;
+                return BadRequest("Failed to register account");
             }
         }
     }

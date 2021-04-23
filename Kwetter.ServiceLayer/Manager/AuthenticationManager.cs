@@ -26,9 +26,9 @@ namespace Kwetter.ServiceLayer.Manager
             return token;
         }
 
-        public async Task TrySignUp(string username, string password)
+        public async Task<bool> TrySignUp(string username, string password)
         {
-            await this.service.Register(username, password).ConfigureAwait(false);
+            return await this.service.Register(username, password).ConfigureAwait(false);
         }
     }
 }

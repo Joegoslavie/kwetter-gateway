@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kwetter.ServiceLayer.Models
+namespace Kwetter.ServiceLayer.Model
 {
     public class Account
     {
@@ -12,6 +12,8 @@ namespace Kwetter.ServiceLayer.Models
         /// 
         /// </summary>
         public string Username { get; set; }
+
+        public string Password { get; set; }
         
         /// <summary>
         /// 
