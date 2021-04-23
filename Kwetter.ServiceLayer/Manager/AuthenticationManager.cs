@@ -10,11 +10,18 @@ namespace Kwetter.ServiceLayer.Manager
     public class AuthenticationManager
     {
         private readonly AuthenticationService service = null;
+
         public AuthenticationManager(AuthenticationService service)
         {
             this.service = service;
         }
 
+        /// <summary>
+        /// Tries to sign in a user.
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <returns></returns>
         public async Task<string> TrySignIn(string username, string password)
         {
            var token = await this.service.SignIn(username, password).ConfigureAwait(false);
@@ -26,6 +33,12 @@ namespace Kwetter.ServiceLayer.Manager
             return token;
         }
 
+        /// <summary>
+        /// Tries to sign up a user.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <param name="password">Password.</param>
+        /// <returns></returns>
         public async Task<bool> TrySignUp(string username, string password)
         {
             return await this.service.Register(username, password).ConfigureAwait(false);

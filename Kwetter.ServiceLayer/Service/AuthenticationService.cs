@@ -22,6 +22,10 @@ namespace Kwetter.ServiceLayer.Service
         /// </summary>
         private readonly string grpcEndpoint;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
+        /// </summary>
+        /// <param name="configuration">Injected configuration.</param>
         public AuthenticationService(IConfiguration configuration)
         {
             this.grpcEndpoint = configuration.GetValue<string>(appKey);
@@ -66,6 +70,12 @@ namespace Kwetter.ServiceLayer.Service
             return token;
         }
 
+        /// <summary>
+        /// Create a service call.
+        /// </summary>
+        /// <typeparam name="TParsedResponse">Parsed response.</typeparam>
+        /// <param name="responseHandler">Handler.</param>
+        /// <returns></returns>
         private async Task<TParsedResponse> AuthenticationClientCall<TParsedResponse>(Func<AuthGRPCService.AuthGRPCServiceClient, Task<TParsedResponse>> responseHandler)
         {
             using (var channel = GrpcChannel.ForAddress(this.grpcEndpoint))
