@@ -1,5 +1,4 @@
 ﻿using Grpc.Net.Client;
-using Kwetter.AuthenticationGRPCService;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Kwetter.AuthenticationGRPCService.AuthenticationGRPCService;
+using Microservice.AuthGRPCService;
 
 namespace Kwetter.ServiceLayer.Service
 {
@@ -52,26 +51,26 @@ namespace Kwetter.ServiceLayer.Service
         /// <returns></returns>
         public async Task<string> SignIn(string username, string password)
         {
-            try
+            string token = string.Empty;
+
+            var response = await this.AuthenticationClientCall(async client =>
             {
-                var response = await this.AuthenticationClientCall(async client =>
-                {
-                    return await client.SignInAsync(new SignInRequest { Username = username, Password = password, });
-                });
-            }
-            catch (Exception ex)
+                return await client.SignInAsync(new SignInRequest { Username = username, Password = password, });
+            });
+
+            if (response.Status && !string.IsNullOrEmpty(response.Token))
             {
-                var x = ex;
+                token = response.Token;
             }
 
-            return "";
+            return token;
         }
 
-        private async Task<TParsedResponse> AuthenticationClientCall<TParsedResponse>(Func<AuthenticationGRPCServiceClient, Task<TParsedResponse>> responseHandler)
+        private async Task<TParsedResponse> AuthenticationClientCall<TParsedResponse>(Func<AuthGRPCService.AuthGRPCServiceClient, Task<TParsedResponse>> responseHandler)
         {
             using (var channel = GrpcChannel.ForAddress(this.grpcEndpoint))
             {
-                var client = new AuthenticationGRPCServiceClient(channel);
+                var client = new AuthGRPCService.AuthGRPCServiceClient(channel);
                 return await responseHandler(client);
             }
         }

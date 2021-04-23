@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-option csharp_namespace = "Kwetter.AuthenticationGRPCService";
+option csharp_namespace = "Microservice.AuthGRPCService";
 
 package auth;
 
 // The authentication service definition.
-service AuthenticationGRPCService {
+service AuthGRPCService {
   rpc SignIn (SignInRequest) returns (SignInResponse);
   rpc Register (RegisterRequest) returns (RegisterResponse);
 }
