@@ -39,5 +39,10 @@
         {
             return false;
         }
+
+        public async Task<bool> ToggleBlock(int userId, int blockId)
+        {
+            return false;
+        }
     }
 }

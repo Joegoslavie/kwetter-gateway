@@ -32,11 +32,21 @@ namespace Kwetter.Business
         /// <summary>
         /// 
         /// </summary>
+        public string TweetServiceUrl => this.config.GetValue<string>(this.TweetServiceKey);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string AuthServiceKey { private get; set; } = "Kwetter.AuthService";
 
         /// <summary>
         /// 
         /// </summary>
         public string ProfileServiceKey { private get; set; } = "Kwetter.ProfileService";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string TweetServiceKey { private get; set; } = "Kwetter.TweetService";
     }
 }

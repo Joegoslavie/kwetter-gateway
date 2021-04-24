@@ -97,7 +97,7 @@
         /// <returns></returns>
         private async Task<TParsedResponse> ProfileClientCall<TParsedResponse>(Func<ProfileGRPCService.ProfileGRPCServiceClient, Task<TParsedResponse>> responseHandler)
         {
-            using (var channel = GrpcChannel.ForAddress(this.settings.AuthenticationServiceUrl))
+            using (var channel = GrpcChannel.ForAddress(this.settings.ProfileServiceUrl))
             {
                 var client = new ProfileGRPCService.ProfileGRPCServiceClient(channel);
                 return await responseHandler(client);

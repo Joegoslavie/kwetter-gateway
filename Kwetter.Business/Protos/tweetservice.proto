@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option csharp_namespace = "Microservice.TweetGRPCService";
+
+package domain;
+
+// The profile service definition.
+service TweetGRPCService {
+  rpc GetTweetsByUserId (TweetRequest) returns (TweetResponse);
+  rpc GetTweetsByUsername (TweetRequest) returns (TweetResponse);
+  rpc GetTweetsByUserIds (TweetRequest) returns (TweetResponse);
+}
+
+message TweetRequest {
+	int32 userId = 1;
+	string username = 2;
+	repeated int32 userIds = 3;
+}
+
+message TweetResponse {
+	repeated TweetResponseData tweets = 1;
+	string message = 2;
+	bool status = 3;
+}
+
+message TweetResponseData {
+	int32 userId = 1;
+	string username = 2;
+	string displayName = 3;
+	string description = 4;
+	string websiteUri = 5;
+	string location = 6;
+	string avatarUri = 7;
+	int64 createdAt = 8;
+}

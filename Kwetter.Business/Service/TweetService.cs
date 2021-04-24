@@ -6,6 +6,8 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Microservice.TweetGRPCService;
+    using Grpc.Net.Client;
 
     /// <summary>
     /// Tweet service.
@@ -39,6 +41,21 @@
         public async Task<Tweet> Place(int userId, string message)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Create a service call.
+        /// </summary>
+        /// <typeparam name="TParsedResponse">Parsed response.</typeparam>
+        /// <param name="responseHandler">Handler.</param>
+        /// <returns></returns>
+        private async Task<TParsedResponse> TweetClientCall<TParsedResponse>(Func<TweetGRPCService.TweetGRPCServiceClient, Task<TParsedResponse>> responseHandler)
+        {
+            using (var channel = GrpcChannel.ForAddress(this.settings.TweetServiceUrl))
+            {
+                var client = new TweetGRPCService.TweetGRPCServiceClient(channel);
+                return await responseHandler(client);
+            }
         }
     }
 }
