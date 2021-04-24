@@ -1,21 +1,24 @@
-﻿using Kwetter.Business.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microservice.ProfileGRPCService;
-
-namespace Kwetter.Business.Factory
+﻿namespace Kwetter.Business.Factory
 {
-    internal class ProfileFactory
+    using Kwetter.Business.Model;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microservice.ProfileGRPCService;
+
+    /// <summary>
+    /// Class for constructing or converting to <see cref="Profile"/> objects.
+    /// </summary>
+    class ProfileFactory
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        public static Profile Parse(SingleProfileResponse response)
+        internal static Profile Parse(SingleProfileResponse response)
         {
             if (response == null || response.Profile == null)
             {
@@ -30,7 +33,7 @@ namespace Kwetter.Business.Factory
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        public static IEnumerable<Profile> Parse(MultipleProfileResponse response)
+        internal static IEnumerable<Profile> Parse(MultipleProfileResponse response)
         {
             if (response == null)
             {
@@ -45,7 +48,7 @@ namespace Kwetter.Business.Factory
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        public static Profile Parse (ProfileResponse response)
+        internal static Profile Parse (ProfileResponse response)
         {
             return new Profile 
             { 

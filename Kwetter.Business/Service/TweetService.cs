@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using Microservice.TweetGRPCService;
     using Grpc.Net.Client;
+    using Kwetter.Business.Factory;
 
     /// <summary>
     /// Tweet service.
@@ -36,7 +37,17 @@
         /// <returns>List of <see cref="Tweet"/>s.</returns>
         public async Task<IEnumerable<Tweet>> GetTweets(int userId, int amount = 150)
         {
-            throw new NotImplementedException();
+            var response = await this.TweetClientCall(async client =>
+            {
+                return await client.GetTweetsByUserIdAsync(new TweetRequest { UserId = userId, Amount = amount, });
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            return response.Tweets.Select(t => TweetFactory.Parse(t));
         }
 
         /// <summary>
