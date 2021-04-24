@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Service\Protos\authentication.proto" />
+    <None Remove="Protos\authentication.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Service\Protos\authentication.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\authentication.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

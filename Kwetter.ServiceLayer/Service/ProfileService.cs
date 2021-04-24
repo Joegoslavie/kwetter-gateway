@@ -27,7 +27,7 @@
             throw new NotImplementedException();
         }
 
-        public async Task<Profile> GetMultiple(IEnumerable<int> userIds)
+        public async Task<IEnumerable<Profile>> GetMultiple(IEnumerable<int> userIds)
         {
             throw new NotImplementedException();
         }

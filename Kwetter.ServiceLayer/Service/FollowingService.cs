@@ -25,12 +25,12 @@
             this.settings = settings;
         }
 
-        public async Task<IEnumerable<int>> LookupFollowers()
+        public async Task<IEnumerable<int>> LookupFollowersIds(int userId)
         {
             return null;
         }
 
-        public async Task<IEnumerable<int>> LookupFollowing()
+        public async Task<IEnumerable<int>> LookupFollowingIds(int userId)
         {
             return null;
         }

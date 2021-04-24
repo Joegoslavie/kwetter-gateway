@@ -58,16 +58,23 @@
             account.Profile = await this.profileService.GetProfile(account.Id).ConfigureAwait(false);
 
             if (includeTweets)
-                account.Profile.Tweets = await this.tweetService.GetTweets(account.Id);
+            {
+                var tweets = await this.tweetService.GetTweets(account.Id).ConfigureAwait(false);
+                account.Profile.Tweets = tweets.ToList();
+            }
 
             if (withFollowings)
             {
-                var followers = this.profileService.GetProfile(account.Id);
-                var following = this.profileService.GetProfile(account.Id);
-                await Task.WhenAll(followers, following).ConfigureAwait(false);
+                var followerIds = this.followService.LookupFollowersIds(account.Id);
+                var followingIds = this.followService.LookupFollowersIds(account.Id);
+                await Task.WhenAll(followerIds, followingIds).ConfigureAwait(false);
 
-                //account.Profile.Followers = followers.Result;
-                //account.Profile.Following = following.Result;
+                var followerProfiles = this.profileService.GetMultiple(followerIds.Result);
+                var followingProfiles = this.profileService.GetMultiple(followingIds.Result);
+                await Task.WhenAll(followerProfiles, followingProfiles).ConfigureAwait(false);
+
+                account.Profile.Followers = followerProfiles.Result.ToList();
+                account.Profile.Following = followingProfiles.Result.ToList();
             }
 
             throw new NotImplementedException();

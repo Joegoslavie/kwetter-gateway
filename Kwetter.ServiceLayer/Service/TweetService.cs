@@ -26,7 +26,7 @@
             this.settings = settings;
         }
 
-        public async Task<List<Tweet>> GetTweets(int userId)
+        public async Task<IEnumerable<Tweet>> GetTweets(int userId)
         {
             throw new NotImplementedException();
         }
