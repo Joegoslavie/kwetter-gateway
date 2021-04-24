@@ -1,22 +1,37 @@
-﻿using Kwetter.Business.Model;
-using Kwetter.Business.Service;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kwetter.Business.Manager
+﻿namespace Kwetter.Business.Manager
 {
+    using Kwetter.Business.Model;
+    using Kwetter.Business.Service;
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class AuthenticationManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly ILogger<AuthenticationManager> logger;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly AuthenticationService authService;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly ProfileService profileService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthenticationManager"/> class.
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="authenticationService"></param>
+        /// <param name="profileService"></param>
         public AuthenticationManager(ILogger<AuthenticationManager> logger, AuthenticationService authenticationService, ProfileService profileService)
         {
             this.logger = logger;

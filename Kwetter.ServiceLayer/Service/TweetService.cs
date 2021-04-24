@@ -1,12 +1,15 @@
-﻿using Kwetter.Business.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kwetter.Business.Service
+﻿namespace Kwetter.Business.Service
 {
+    using Kwetter.Business.Model;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Tweet service.
+    /// </summary>
     public class TweetService
     {
         /// <summary>
@@ -14,6 +17,10 @@ namespace Kwetter.Business.Service
         /// </summary>
         private AppSettings settings;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="settings"></param>
         public TweetService(AppSettings settings)
         {
             this.settings = settings;

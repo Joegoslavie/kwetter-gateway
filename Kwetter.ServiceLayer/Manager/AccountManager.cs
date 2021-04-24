@@ -1,13 +1,16 @@
-﻿using Kwetter.Business.Model;
-using Kwetter.Business.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kwetter.Business.Manager
+﻿namespace Kwetter.Business.Manager
 {
+    using Kwetter.Business.Model;
+    using Kwetter.Business.Service;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Account manager class.
+    /// </summary>
     public class AccountManager
     {
         /// <summary>
@@ -25,6 +28,12 @@ namespace Kwetter.Business.Manager
         /// </summary>
         private readonly FollowingService followService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountManager"/> class.
+        /// </summary>
+        /// <param name="profileService"></param>
+        /// <param name="tweetService"></param>
+        /// <param name="followingService"></param>
         public AccountManager(ProfileService profileService, TweetService tweetService, FollowingService followingService)
         {
             this.profileService = profileService;

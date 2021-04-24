@@ -60,7 +60,7 @@ namespace Kwetter.UserGateway.Controllers
             }
             catch (AuthenticationException exception)
             {
-                this.logger.LogError($"Login exception occured for user {model.Username}", exception);
+                this.logger.LogError($"Authentication exception occured for user {model.Username}", exception);
                 return BadRequest(exception.Message);
             }
             catch (Exception ex)
@@ -91,7 +91,7 @@ namespace Kwetter.UserGateway.Controllers
             }
             catch (Exception ex)
             {
-                this.logger.LogError("Exception occurred in login", ex);
+                this.logger.LogError("Exception occurred in register operation", ex);
                 return BadRequest();
             }
         }

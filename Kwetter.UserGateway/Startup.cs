@@ -1,5 +1,5 @@
-using Kwetter.ServiceLayer.Manager;
-using Kwetter.ServiceLayer.Service;
+using Kwetter.Business.Manager;
+using Kwetter.Business.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

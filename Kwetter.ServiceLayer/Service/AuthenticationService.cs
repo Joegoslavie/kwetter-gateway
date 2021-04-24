@@ -1,18 +1,16 @@
-﻿using Grpc.Net.Client;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microservice.AuthGRPCService;
-using Kwetter.Business.Model;
-using Kwetter.Business.Factory;
-using System.Security.Authentication;
-
-namespace Kwetter.Business.Service
+﻿namespace Kwetter.Business.Service
 {
+    using Grpc.Net.Client;
+    using System;
+    using System.Threading.Tasks;
+    using Microservice.AuthGRPCService;
+    using Kwetter.Business.Model;
+    using Kwetter.Business.Factory;
+    using System.Security.Authentication;
+
+    /// <summary>
+    /// Authentication service.
+    /// </summary>
     public class AuthenticationService
     {
         /// <summary>
@@ -47,7 +45,7 @@ namespace Kwetter.Business.Service
                 throw new AuthenticationException(response.Message);
             }
 
-            return AccountFactory.FromResponse(response);
+            return ModelFactory.FromResponse(response);
         }
 
         /// <summary>
@@ -68,7 +66,7 @@ namespace Kwetter.Business.Service
                 throw new AuthenticationException(response.Message);
             }
 
-            return AccountFactory.FromResponse(response);
+            return ModelFactory.FromResponse(response);
         }
 
         /// <summary>

@@ -1,12 +1,15 @@
-﻿using Kwetter.Business.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kwetter.Business.Service
+﻿namespace Kwetter.Business.Service
 {
+    using Kwetter.Business.Model;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Profile service.
+    /// </summary>
     public class ProfileService
     {
         /// <summary>

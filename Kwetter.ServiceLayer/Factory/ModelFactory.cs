@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace Kwetter.Business.Factory
 {
-    public class AccountFactory
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ModelFactory
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
         public static Account FromResponse(AuthenticationResponse response)
         {
             if (response == null || response.Account == null)
