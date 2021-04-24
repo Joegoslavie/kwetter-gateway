@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Kwetter.ServiceLayer.Model
+namespace Kwetter.UserGateway.VIewModels.Account
 {
-    public class Profile
+    public class ProfileViewModel
     {
         /// <summary>
         /// 
@@ -21,12 +20,7 @@ namespace Kwetter.ServiceLayer.Model
         /// <summary>
         /// 
         /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string WebsiteUri { get; set; }
+        public string WebsiteUrl { get; set; }
 
         /// <summary>
         /// 
@@ -36,26 +30,27 @@ namespace Kwetter.ServiceLayer.Model
         /// <summary>
         /// 
         /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string AvatarUrl { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Tweet> Tweets { get; set; } = new List<Tweet>();
+        public List<TweetViewModel> Tweets { get; set; } = new List<TweetViewModel>();
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Account> Following { get; set; } = new List<Account>();
+        public List<ProfileViewModel> Following { get; set; } = new List<ProfileViewModel>();
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Account> Followers { get; set; } = new List<Account>();
+        public List<ProfileViewModel> Followers { get; set; } = new List<ProfileViewModel>();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<Account> Blocked { get; set; } = new List<Account>();
     }
 }

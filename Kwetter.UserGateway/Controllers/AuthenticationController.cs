@@ -1,12 +1,14 @@
 ﻿using Kwetter.ServiceLayer.Manager;
 using Kwetter.ServiceLayer.Model;
 using Kwetter.ServiceLayer.Validation;
+using Kwetter.UserGateway.Factory;
 using Kwetter.UserGateway.VIewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -43,13 +45,21 @@ namespace Kwetter.UserGateway.Controllers
             {
                 AuthenticationValidation.ValidateUsername(model.Username);
                 AuthenticationValidation.ValidatePassword(model.Password);
-                var token = await this.manager.TrySignIn(model.Username, model.Password).ConfigureAwait(false);
-                return Ok(token);
+
+                var account = await this.manager.SignIn(model.Username, model.Password).ConfigureAwait(false);
+                var viewModel = ModelFactory.Convert(account);
+
+                return Ok(viewModel);
             }
-            catch (ArgumentException ex)
+            catch (AuthenticationException exception)
             {
-                this.logger.LogError("Exception occurred in register function", ex);
-                return BadRequest("Failed to authenticate account");
+                this.logger.LogError($"Login exception occured for user {model.Username}", exception);
+                return BadRequest(exception.Message);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError("Exception occurred in login operation", ex);
+                return BadRequest();
             }
         }
 
@@ -63,17 +73,20 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidateUsername(model.Username);
                 AuthenticationValidation.ValidatePassword(model.Password, model.PasswordRepeated);
 
-                var registerState = await this.manager.TrySignUp(model.Username, model.Password).ConfigureAwait(false);
-                if(registerState)
-                {
-                    return Ok("Succesfully registered");
-                }
-                return Ok("Failure noob");
+                var account = await this.manager.Register(model.Username, model.Password).ConfigureAwait(false);
+                var viewModel = ModelFactory.Convert(account);
+
+                return Ok(viewModel);
+            }
+            catch (AuthenticationException exception)
+            {
+                this.logger.LogError($"Registration exception occured ", exception, model.Username);
+                return BadRequest(exception.Message);
             }
             catch (Exception ex)
             {
-                this.logger.LogError("Exception occurred in login function", ex);
-                return BadRequest("Failed to register account");
+                this.logger.LogError("Exception occurred in login", ex);
+                return BadRequest();
             }
         }
     }

@@ -17,8 +17,4 @@
     <Protobuf Include="Service\Protos\authentication.proto" GrpcServices="Client" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Factory\" />
-  </ItemGroup>
-
 </Project>

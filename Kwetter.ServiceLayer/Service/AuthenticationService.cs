@@ -7,28 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microservice.AuthGRPCService;
+using Kwetter.ServiceLayer.Model;
+using Kwetter.ServiceLayer.Factory;
+using System.Security.Authentication;
 
 namespace Kwetter.ServiceLayer.Service
 {
     public class AuthenticationService
     {
         /// <summary>
-        /// The app key that contains the GRPC url.
+        /// Access to the app configuration.
         /// </summary>
-        private readonly string appKey = "Kwetter.AuthService";
-
-        /// <summary>
-        /// The full GRPC endpoint address.
-        /// </summary>
-        private readonly string grpcEndpoint;
+        private AppSettings settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
         /// </summary>
         /// <param name="configuration">Injected configuration.</param>
-        public AuthenticationService(IConfiguration configuration)
+        public AuthenticationService(AppSettings settings)
         {
-            this.grpcEndpoint = configuration.GetValue<string>(appKey);
+            this.settings = settings;
         }
 
         /// <summary>
@@ -37,14 +35,19 @@ namespace Kwetter.ServiceLayer.Service
         /// <param name="username">Username to register.</param>
         /// <param name="password">Associated password.</param>
         /// <returns></returns>
-        public async Task<bool> Register(string username, string password)
+        public async Task<Account> Register(string username, string password)
         {
             var response = await this.AuthenticationClientCall(async client =>
             {
                 return await client.RegisterAsync(new RegisterRequest { Username = username, Password = password, });
             });
 
-            return response.Status;
+            if (!response.Status)
+            {
+                throw new AuthenticationException(response.Message);
+            }
+
+            return AccountFactory.FromResponse(response);
         }
 
         /// <summary>
@@ -53,21 +56,19 @@ namespace Kwetter.ServiceLayer.Service
         /// <param name="username">Username string.</param>
         /// <param name="password">Password string.</param>
         /// <returns></returns>
-        public async Task<string> SignIn(string username, string password)
+        public async Task<Account> SignIn(string username, string password)
         {
-            string token = string.Empty;
-
             var response = await this.AuthenticationClientCall(async client =>
             {
                 return await client.SignInAsync(new SignInRequest { Username = username, Password = password, });
             });
 
-            if (response.Status && !string.IsNullOrEmpty(response.Token))
+            if(!response.Status)
             {
-                token = response.Token;
+                throw new AuthenticationException(response.Message);
             }
 
-            return token;
+            return AccountFactory.FromResponse(response);
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace Kwetter.ServiceLayer.Service
         /// <returns></returns>
         private async Task<TParsedResponse> AuthenticationClientCall<TParsedResponse>(Func<AuthGRPCService.AuthGRPCServiceClient, Task<TParsedResponse>> responseHandler)
         {
-            using (var channel = GrpcChannel.ForAddress(this.grpcEndpoint))
+            using (var channel = GrpcChannel.ForAddress(this.settings.AuthenticationServiceUrl))
             {
                 var client = new AuthGRPCService.AuthGRPCServiceClient(channel);
                 return await responseHandler(client);

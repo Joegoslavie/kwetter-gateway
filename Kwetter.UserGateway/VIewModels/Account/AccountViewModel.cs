@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Kwetter.ServiceLayer.Model
+namespace Kwetter.UserGateway.VIewModels.Account
 {
-    public class Account
+    public class AccountViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public int Id { get; set; }
+        
         /// <summary>
         /// 
         /// </summary>
         public string Username { get; set; }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -23,15 +26,10 @@ namespace Kwetter.ServiceLayer.Model
         /// 
         /// </summary>
         public string Token { get; set; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public Profile Profile { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<Tweet> Tweets { get; set; } = new List<Tweet>();
+        public ProfileViewModel Profile { get; set; }
     }
 }
