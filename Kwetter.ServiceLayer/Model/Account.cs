@@ -28,10 +28,5 @@ namespace Kwetter.ServiceLayer.Model
         /// 
         /// </summary>
         public Profile Profile { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<Tweet> Tweets { get; set; } = new List<Tweet>();
     }
 }
