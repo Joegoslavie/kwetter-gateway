@@ -20,9 +20,9 @@
         private AppSettings settings;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TweetService"/> class.
         /// </summary>
-        /// <param name="settings"></param>
+        /// <param name="settings">Current application settings.</param>
         public TweetService(AppSettings settings)
         {
             this.settings = settings;

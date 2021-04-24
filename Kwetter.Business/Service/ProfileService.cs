@@ -21,6 +21,10 @@
         /// </summary>
         private AppSettings settings;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProfileService"/> class.
+        /// </summary>
+        /// <param name="settings">Current application settings.</param>
         public ProfileService(AppSettings settings)
         {
             this.settings = settings;

@@ -22,7 +22,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
         /// </summary>
-        /// <param name="configuration">Injected configuration.</param>
+        /// <param name="settings">Current application settings.</param>
         public AuthenticationService(AppSettings settings)
         {
             this.settings = settings;

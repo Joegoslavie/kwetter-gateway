@@ -19,9 +19,9 @@
         private readonly AppSettings settings;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="FollowingService"/> class.
         /// </summary>
-        /// <param name="settings"></param>
+        /// <param name="settings">Current application settings.</param>
         public FollowingService(AppSettings settings)
         {
             this.settings = settings;
