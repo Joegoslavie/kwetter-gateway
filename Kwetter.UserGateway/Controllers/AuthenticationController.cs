@@ -81,7 +81,7 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidateUsername(model.Username);
                 AuthenticationValidation.ValidatePassword(model.Password, model.PasswordRepeated);
 
-                var account = await this.authManager.Register(model.Username, model.Password).ConfigureAwait(false);
+                var account = await this.authManager.Register(model.Username, model.Password, email: string.Empty).ConfigureAwait(false);
                 account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
                 return Ok(account);
             }
