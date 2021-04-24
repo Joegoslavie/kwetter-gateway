@@ -40,11 +40,11 @@
         }
 
         /// <summary>
-        /// Tries to sign in a user.
+        /// Tries to sign in a user, when succesfully authenticated, the <see cref="Account"/> of the user will be returned.
         /// </summary>
-        /// <param name="username">Username</param>
-        /// <param name="password">Password</param>
-        /// <returns></returns>
+        /// <param name="username">Username string.</param>
+        /// <param name="password">Password string.</param>
+        /// <returns><see cref="Account"/> of the <paramref name="username"/>.</returns>
         public async Task<Account> SignIn(string username, string password)
         {
             if (string.IsNullOrEmpty(username))
@@ -57,8 +57,6 @@
                 throw new ArgumentNullException(nameof(username));
             }
 
-            // todo: add calls to other services;
-
             var account = await this.authService.SignIn(username, password).ConfigureAwait(false);
             this.logger.LogInformation($"User {username} authentication successfully");
 
@@ -66,12 +64,13 @@
         }
 
         /// <summary>
-        /// Tries to sign up a user.
+        /// Tries to register an account in the database with the passed parameters.
         /// </summary>
-        /// <param name="username">Username.</param>
-        /// <param name="password">Password.</param>
-        /// <returns></returns>
-        public async Task<Account> Register(string username, string password)
+        /// <param name="username">Username string.</param>
+        /// <param name="password">Password string.</param>
+        /// <param name="email">Email string.</param>
+        /// <returns>Newly created <see cref="Account"/>.</returns>
+        public async Task<Account> Register(string username, string password, string email)
         {
             if (string.IsNullOrEmpty(username))
             {

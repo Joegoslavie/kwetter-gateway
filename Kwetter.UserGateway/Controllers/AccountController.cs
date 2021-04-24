@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Kwetter.Business.Manager;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,42 +14,21 @@ namespace Kwetter.UserGateway.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        
-        public AccountController()
-        {
+        /// <summary>
+        /// Logger instance for this controller.
+        /// </summary>
+        private readonly ILogger<AccountController> logger;
 
-        }
 
-        // GET: api/<AccountController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        /// <summary>
+        /// Account manager for doing account related operations.
+        /// </summary>
+        private readonly AccountManager accountManager;
 
-        // GET api/<AccountController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        public AccountController(AccountManager manager, ILogger<AccountController> logger)
         {
-            return "value";
-        }
-
-        // POST api/<AccountController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<AccountController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<AccountController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            this.accountManager = manager;
+            this.logger = logger;
         }
     }
 }
