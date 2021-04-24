@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option csharp_namespace = "Microservice.AuthGRPCService";
+
+package auth;
+
+// The authentication service definition.
+service AuthGRPCService {
+  rpc SignIn (SignInRequest) returns (AuthenticationResponse);
+  rpc Register (RegisterRequest) returns (AuthenticationResponse);
+}
+
+
+message SignInRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterRequest {
+	string username = 1;
+	string email = 2;
+	string password = 3;
+}
+
+message AuthenticationResponse {
+  AccountResponse account = 1;
+  string message = 2;
+  bool status = 3;
+}
+
+message AccountResponse {
+	int32 id = 1;
+	string username = 2;
+	string email = 3;
+	string token = 4;
+}

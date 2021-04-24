@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option csharp_namespace = "Microservice.ProfileGRPCService";
+
+package domain;
+
+// The profile service definition.
+service ProfileGRPCService {
+  rpc GetProfileById (ProfileRequest) returns (SingleProfileResponse);
+  rpc GetProfileByUsername (ProfileRequest) returns (SingleProfileResponse);
+  rpc GetMultipleById (ProfileRequest) returns (MultipleProfileResponse);
+  rpc UpdateProfile(UpdateProfileRequest) returns (SingleProfileResponse);
+}
+
+message ProfileRequest {
+  int32 userId = 1;
+  string username = 2;
+  repeated int32 userIds = 3;
+}
+
+message UpdateProfileRequest {
+	int32 userId = 1;
+	string username = 2;
+	string displayName = 3;
+	string description = 4;
+	string websiteUri = 5;
+	string location = 6;
+	string avatarUri = 7;
+}
+
+message SingleProfileResponse {
+  ProfileResponse profile = 1;
+  string message = 2;
+  bool status = 3;
+}
+
+message MultipleProfileResponse {
+	repeated ProfileResponse profiles = 1;
+	string message = 2;
+	bool status = 3;
+}
+
+message ProfileResponse {
+	int32 userId = 1;
+	string username = 2;
+	string displayName = 3;
+	string description = 4;
+	string websiteUri = 5;
+	string location = 6;
+	string avatarUri = 7;
+	int64 createdAt = 8;
+}

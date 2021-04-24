@@ -1,18 +1,29 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Protos\authentication.proto" />
+    <None Remove="Protos\followservice.proto" />
+    <None Remove="Protos\profileservice.proto" />
+    <None Remove="Protos\tweetservice.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Factory\" />
-    <Folder Include="Protos\" />
-    <Folder Include="Service\" />
   </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Protobuf Include="Protos\authentication.proto" GrpcServices="Client" />
+	  <Protobuf Include="Protos\followservice.proto" GrpcServices="Client" />
+	  <Protobuf Include="Protos\profileservice.proto" GrpcServices="Client" />
+	  <Protobuf Include="Protos\tweetservice.proto" GrpcServices="Client" />
 	</ItemGroup>
 
 </Project>
