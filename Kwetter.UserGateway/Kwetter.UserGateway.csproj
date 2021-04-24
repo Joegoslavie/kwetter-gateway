@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kwetter.ServiceLayer\Kwetter.Business.csproj" />
+    <ProjectReference Include="..\Kwetter.Business\Kwetter.Business.csproj" />
   </ItemGroup>
 
 

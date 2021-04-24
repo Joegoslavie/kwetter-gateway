@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.UserGateway", "Kwet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.ModerationGateway", "Kwetter.ModerationGateway\Kwetter.ModerationGateway.csproj", "{69D0CBD6-6806-462A-8AA5-AF7072228D12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.Business", "Kwetter.ServiceLayer\Kwetter.Business.csproj", "{1E1DF684-1D20-463B-80AC-2905CF0C6C41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.Business", "Kwetter.Business\Kwetter.Business.csproj", "{51F6CA66-3D31-4DE7-9745-04E46118E9BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E1DF684-1D20-463B-80AC-2905CF0C6C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E1DF684-1D20-463B-80AC-2905CF0C6C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E1DF684-1D20-463B-80AC-2905CF0C6C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E1DF684-1D20-463B-80AC-2905CF0C6C41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51F6CA66-3D31-4DE7-9745-04E46118E9BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51F6CA66-3D31-4DE7-9745-04E46118E9BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51F6CA66-3D31-4DE7-9745-04E46118E9BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51F6CA66-3D31-4DE7-9745-04E46118E9BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

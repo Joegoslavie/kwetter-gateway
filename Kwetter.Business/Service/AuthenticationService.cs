@@ -45,7 +45,7 @@
                 throw new AuthenticationException(response.Message);
             }
 
-            return ModelFactory.FromResponse(response);
+            return AccountFactory.Parse(response);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@
                 throw new AuthenticationException(response.Message);
             }
 
-            return ModelFactory.FromResponse(response);
+            return AccountFactory.Parse(response);
         }
 
         /// <summary>

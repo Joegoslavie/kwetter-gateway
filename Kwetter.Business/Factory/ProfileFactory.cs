@@ -1,10 +1,10 @@
 ﻿using Kwetter.Business.Model;
-using Microservice.ProfileGRPCService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microservice.ProfileGRPCService;
 
 namespace Kwetter.Business.Factory
 {

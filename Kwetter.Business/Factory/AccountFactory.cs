@@ -1,24 +1,16 @@
 ﻿using Kwetter.Business.Model;
-using Microservice.AuthGRPCService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microservice.AuthGRPCService;
 
 namespace Kwetter.Business.Factory
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class ModelFactory
+    class AccountFactory
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="response"></param>
-        /// <returns></returns>
-        public static Account FromResponse(AuthenticationResponse response)
+        public static Account Parse(AuthenticationResponse response)
         {
             if (response == null || response.Account == null)
             {
