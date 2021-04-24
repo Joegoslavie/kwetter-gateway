@@ -28,16 +28,33 @@
             this.settings = settings;
         }
 
-        public async Task<IEnumerable<Tweet>> GetTweets(int userId)
+        /// <summary>
+        /// Retrieves the tweets created by the passed <paramref name="userId"/>.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <param name="amount">Amount of tweets to retrieve.</param>
+        /// <returns>List of <see cref="Tweet"/>s.</returns>
+        public async Task<IEnumerable<Tweet>> GetTweets(int userId, int amount = 150)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tweetId"></param>
+        /// <returns></returns>
         public async Task<bool> ToggleLike(int tweetId)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Places a new tweet in the microservice backend.
+        /// </summary>
+        /// <param name="userId">Author user id.</param>
+        /// <param name="message">Content of the tweet.</param>
+        /// <returns></returns>
         public async Task<Tweet> Place(int userId, string message)
         {
             throw new NotImplementedException();

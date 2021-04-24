@@ -7,6 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Microservice.FollowingGRPCService;
+    using Kwetter.Business.Model.Enum;
 
     /// <summary>
     /// Following service.
@@ -27,24 +28,52 @@
             this.settings = settings;
         }
 
-        public async Task<IEnumerable<int>> LookupFollowersIds(int userId)
+        /// <summary>
+        /// Retrieves the <see cref="FollowType.Following"/> and <see cref="FollowType.Followers"/> properties of the passed
+        /// user id. 
+        /// </summary>
+        /// <param name="userId">User id to retrieve data from.</param>
+        /// <returns>Dictionary with type and ids that belong to the type.</returns>
+        public async Task<IDictionary<FollowType, IEnumerable<int>>> FetchIds(int userId)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<int>> LookupFollowingIds(int userId)
+        /// <summary>
+        /// Retrieves the <see cref="FollowType.Following"/> and <see cref="FollowType.Followers"/> properties of the passed
+        /// user id. 
+        /// </summary>
+        /// <param name="username">Username to retrieve data from.</param>
+        /// <returns>Dictionary with type and ids that belong to the type.</returns>
+        public async Task<IDictionary<FollowType, IEnumerable<int>>> FetchIds(string username)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Toggles a follow on the <paramref name="followId"/> in the microservice backend. If the user is already following the
+        /// user the <paramref name="followId"/> will be unfollowed. Or else the <paramref name="followId"/> will be followed.
+        /// </summary>
+        /// <param name="userId">Current user id.</param>
+        /// <param name="followId">Id to toggle following on.</param>
+        /// <returns>Bool indicating if the user has started following or unfollowed the user. Where <see cref="true"/> means that a new follow record was created
+        /// and <see cref="false"/> that an unfollow operation was performed.</returns>
         public async Task<bool> ToggleFollow(int userId, int followId)
         {
-            return false;
+            throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Toggles a block on the <paramref name="blockId"/> in the microservice backend. If the user is already blocked the
+        /// user <paramref name="blockId"/> will be unblocked. Or else the <paramref name="blockId"/> will be blocked.
+        /// </summary>
+        /// <param name="userId">Current user id.</param>
+        /// <param name="blockId">Id to toggle block on.</param>
+        /// <returns>Bool indicating if the user has started following or unfollowed the user. Where <see cref="true"/> means that a new block record was created
+        /// and <see cref="false"/> that an unblock operation was performed.</returns>
         public async Task<bool> ToggleBlock(int userId, int blockId)
         {
-            return false;
+            throw new NotImplementedException();
         }
 
         /// <summary>

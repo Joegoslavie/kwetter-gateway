@@ -41,7 +41,7 @@
         /// <summary>
         /// Gets the tweet service endpoint url from the configuration.
         /// </summary>
-        public string TweetServiceUrl => this.config.GetValue<string>(this.TweetServiceKey);\
+        public string TweetServiceUrl => this.config.GetValue<string>(this.TweetServiceKey);
 
         #endregion
 

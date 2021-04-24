@@ -1,6 +1,7 @@
 ﻿namespace Kwetter.Business.Manager
 {
     using Kwetter.Business.Model;
+    using Kwetter.Business.Model.Enum;
     using Kwetter.Business.Service;
     using System;
     using System.Collections.Generic;
@@ -43,7 +44,7 @@
 
         /// <summary>
         /// Retrieves the profile of the passed <paramref name="account"/>. Additionally, based on the extra arguments more data
-        /// can be retrieved such as tweets, following and followers profiles. 
+        /// is retrieved such as tweets, following and followers profiles. 
         /// </summary>
         /// <param name="account"></param>
         /// <param name="includeTweets">Indicates if the tweets need to be retrieved.</param>
@@ -66,12 +67,10 @@
 
             if (withFollowings)
             {
-                var followerIds = this.followService.LookupFollowersIds(account.Id);
-                var followingIds = this.followService.LookupFollowersIds(account.Id);
-                await Task.WhenAll(followerIds, followingIds).ConfigureAwait(false);
+                var followData = await this.followService.FetchIds(account.Id).ConfigureAwait(false);
 
-                var followerProfiles = this.profileService.GetMultiple(followerIds.Result);
-                var followingProfiles = this.profileService.GetMultiple(followingIds.Result);
+                var followerProfiles = this.profileService.GetMultiple(followData[FollowType.Followers]);
+                var followingProfiles = this.profileService.GetMultiple(followData[FollowType.Following]);
                 await Task.WhenAll(followerProfiles, followingProfiles).ConfigureAwait(false);
 
                 profile.Followers = followerProfiles.Result.ToList();
@@ -80,25 +79,6 @@
 
             return profile;
 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userIds"></param>
-        /// <param name="includeTweets"></param>
-        /// <param name="includeFollowers"></param>
-        /// <param name="includeFollowing"></param>
-        /// <param name="includeBlocked"></param>
-        /// <returns></returns>
-        public async Task<Profile> GetAccounts(
-            IEnumerable<int> userIds,
-            bool includeTweets = false,
-            bool includeFollowers = false,
-            bool includeFollowing = false,
-            bool includeBlocked = false)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -16,7 +16,7 @@
         /// </summary>
         public TweetManager()
         {
-
+            // Todo, make analyser.
         }
     }
 }

@@ -8,25 +8,23 @@ namespace Kwetter.Business.Validation
 {
     public class AuthenticationValidation
     {
-        // Todo: extend and enforce password policy too.
-
         /// <summary>
-        /// 
+        /// Validates that the passed <paramref name="password"/> is not null or empty.
         /// </summary>
-        /// <param name="password"></param>
+        /// <param name="password">Password string.</param>
         public static void ValidatePassword(string password)
         {
-            if(string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(password))
             {
                 throw new ArgumentNullException(nameof(password));
             }
         }
 
         /// <summary>
-        /// 
+        /// Validates that the passed passwords are not null or empty and are identical.
         /// </summary>
-        /// <param name="password"></param>
-        /// <param name="repeat"></param>
+        /// <param name="password">Password string.</param>
+        /// <param name="repeat">Repeated password string.</param>
         public static void ValidatePassword(string password, string repeat)
         {
             if (string.IsNullOrEmpty(password))
@@ -46,9 +44,9 @@ namespace Kwetter.Business.Validation
         }
 
         /// <summary>
-        /// 
+        /// Validates that the passed <paramref name="username"/> is not null or empty.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="username">Username string.</param>
         public static void ValidateUsername(string username)
         {
             if (string.IsNullOrEmpty(username)) 
