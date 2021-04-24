@@ -9,6 +9,11 @@ namespace Kwetter.ServiceLayer.Model
     public class Tweet
     {
         /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the author of the tweet.
         /// </summary>
         public string Author { get; set; }

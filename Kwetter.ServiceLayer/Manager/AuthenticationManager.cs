@@ -47,7 +47,7 @@ namespace Kwetter.ServiceLayer.Manager
             var account = await this.authService.SignIn(username, password).ConfigureAwait(false);
             this.logger.LogInformation($"User {username} authentication successfully");
 
-            return await this.CompleteProfile(account).ConfigureAwait(false);
+            return account;
         }
 
         /// <summary>
@@ -71,18 +71,6 @@ namespace Kwetter.ServiceLayer.Manager
             var account = await this.authService.Register(username, password).ConfigureAwait(false);
             this.logger.LogInformation($"@{username} created by user");
 
-            return await this.CompleteProfile(account).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Retrieves addition properties of a newly signed in user. This will retrieve the <see cref="Account.Profile"/> and 
-        /// <see cref="Account.Tweets"/> properties.
-        /// </summary>
-        /// <param name="account">The account.</param>
-        /// <returns>Updated account properties.</returns>
-        private async Task<Account> CompleteProfile(Account account)
-        {
-            await this.profileService.IncludeProfile(account).ConfigureAwait(false);
             return account;
         }
     }

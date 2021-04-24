@@ -1,5 +1,6 @@
 ﻿using Kwetter.ServiceLayer.Manager;
 using Kwetter.ServiceLayer.Model;
+using Kwetter.ServiceLayer.Service;
 using Kwetter.ServiceLayer.Validation;
 using Kwetter.UserGateway.Factory;
 using Kwetter.UserGateway.VIewModels.Authentication;
@@ -27,13 +28,21 @@ namespace Kwetter.UserGateway.Controllers
         /// <summary>
         /// Authentication manager for auth related operations.
         /// </summary>
-        private readonly AuthenticationManager manager = null;
+        private readonly AuthenticationManager authManager;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly AccountManager accountManager;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, AuthenticationManager manager)
+        public AuthenticationController(
+            ILogger<AuthenticationController> logger, 
+            AuthenticationManager authManager, 
+            AccountManager accountManager)
         {
             this.logger = logger;
-            this.manager = manager;
+            this.authManager = authManager;
+            this.accountManager = accountManager;
         }
 
         // POST api/<AuthenticationController>
@@ -46,10 +55,9 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidateUsername(model.Username);
                 AuthenticationValidation.ValidatePassword(model.Password);
 
-                var account = await this.manager.SignIn(model.Username, model.Password).ConfigureAwait(false);
-                var viewModel = ModelFactory.Convert(account);
-
-                return Ok(viewModel);
+                var account = await this.authManager.SignIn(model.Username, model.Password).ConfigureAwait(false);
+                account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, includeFollowers: true, includeFollowing: true).ConfigureAwait(false);
+                return Ok(account);
             }
             catch (AuthenticationException exception)
             {
@@ -73,10 +81,9 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidateUsername(model.Username);
                 AuthenticationValidation.ValidatePassword(model.Password, model.PasswordRepeated);
 
-                var account = await this.manager.Register(model.Username, model.Password).ConfigureAwait(false);
-                var viewModel = ModelFactory.Convert(account);
-
-                return Ok(viewModel);
+                var account = await this.authManager.Register(model.Username, model.Password).ConfigureAwait(false);
+                account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, includeFollowers: true, includeFollowing: true).ConfigureAwait(false);
+                return Ok(account);
             }
             catch (AuthenticationException exception)
             {

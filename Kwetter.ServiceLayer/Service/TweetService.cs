@@ -7,24 +7,29 @@ using System.Threading.Tasks;
 
 namespace Kwetter.ServiceLayer.Service
 {
-    public class ProfileService
+    public class TweetService
     {
         /// <summary>
         /// Access to the app configuration.
         /// </summary>
         private AppSettings settings;
 
-        public ProfileService(AppSettings settings)
+        public TweetService(AppSettings settings)
         {
             this.settings = settings;
         }
 
-        public async Task<Profile> GetProfile(int userId)
+        public async Task<List<Tweet>> GetTweets(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Profile> GetMultiple(IEnumerable<int> userIds)
+        public async Task<bool> ToggleLike(int tweetId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Tweet> Place(int userId, string message)
         {
             throw new NotImplementedException();
         }
