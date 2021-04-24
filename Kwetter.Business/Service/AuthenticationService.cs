@@ -7,6 +7,7 @@
     using Kwetter.Business.Model;
     using Kwetter.Business.Factory;
     using System.Security.Authentication;
+    using Kwetter.Business.Exceptions;
 
     /// <summary>
     /// Authentication service.
@@ -42,7 +43,7 @@
 
             if (!response.Status)
             {
-                throw new AuthenticationException(response.Message);
+                throw new AuthenticateException(response.Message);
             }
 
             return AccountFactory.Parse(response);
@@ -63,7 +64,7 @@
 
             if(!response.Status)
             {
-                throw new AuthenticationException(response.Message);
+                throw new AuthenticateException(response.Message);
             }
 
             return AccountFactory.Parse(response);

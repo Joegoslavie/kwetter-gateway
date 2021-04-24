@@ -14,17 +14,17 @@
     public class AccountManager
     {
         /// <summary>
-        /// 
+        /// Profile service instance.
         /// </summary>
         private readonly ProfileService profileService;
 
         /// <summary>
-        /// 
+        /// Tweet service instance.
         /// </summary>
         private readonly TweetService tweetService;
 
         /// <summary>
-        /// 
+        /// Follow service instance.
         /// </summary>
         private readonly FollowingService followService;
 
@@ -38,29 +38,30 @@
         {
             this.profileService = profileService;
             this.tweetService = tweetService;
+            this.followService = followingService;
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the profile of the passed <paramref name="account"/>. Additionally, based on the extra arguments more data
+        /// can be retrieved such as tweets, following and followers profiles. 
         /// </summary>
         /// <param name="account"></param>
-        /// <param name="includeTweets"></param>
-        /// <param name="includeFollowers"></param>
-        /// <param name="includeFollowing"></param>
-        /// <param name="includeBlocked"></param>
-        /// <returns></returns>
+        /// <param name="includeTweets">Indicates if the tweets need to be retrieved.</param>
+        /// <param name="withFollowings">Indicates if the following/follower properties should be retrieved.</param>
+        /// <param name="includeBlocked">Indicates if the blocked users should be retrieved.</param>
+        /// <returns><see cref="Profile"/> of the passed <see cref="Account"/> parameter.</returns>
         public async Task<Profile> GetProfile(
             Account account,
             bool includeTweets = false,
             bool withFollowings = false,
             bool includeBlocked = false)
         {
-            account.Profile = await this.profileService.GetProfile(account.Id).ConfigureAwait(false);
+            var profile = await this.profileService.GetProfile(account.Id).ConfigureAwait(false);
 
             if (includeTweets)
             {
                 var tweets = await this.tweetService.GetTweets(account.Id).ConfigureAwait(false);
-                account.Profile.Tweets = tweets.ToList();
+                profile.Tweets = tweets.ToList();
             }
 
             if (withFollowings)
@@ -73,11 +74,12 @@
                 var followingProfiles = this.profileService.GetMultiple(followingIds.Result);
                 await Task.WhenAll(followerProfiles, followingProfiles).ConfigureAwait(false);
 
-                account.Profile.Followers = followerProfiles.Result.ToList();
-                account.Profile.Following = followingProfiles.Result.ToList();
+                profile.Followers = followerProfiles.Result.ToList();
+                profile.Following = followingProfiles.Result.ToList();
             }
 
-            throw new NotImplementedException();
+            return profile;
+
         }
 
         /// <summary>

@@ -1,13 +1,10 @@
-﻿using Kwetter.Business.Manager;
-using Kwetter.Business.Model;
-using Kwetter.Business.Service;
+﻿using Kwetter.Business.Exceptions;
+using Kwetter.Business.Manager;
 using Kwetter.Business.Validation;
 using Kwetter.UserGateway.VIewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 
@@ -30,7 +27,7 @@ namespace Kwetter.UserGateway.Controllers
         private readonly AuthenticationManager authManager;
 
         /// <summary>
-        /// 
+        /// Account manager for doing account related operations.
         /// </summary>
         private readonly AccountManager accountManager;
 
@@ -63,6 +60,11 @@ namespace Kwetter.UserGateway.Controllers
                 this.logger.LogError($"Authentication exception occured for user {model.Username}", exception);
                 return BadRequest(exception.Message);
             }
+            catch (ProfileException exception)
+            {
+                this.logger.LogError($"Profile exception occured in login operation", exception);
+                return BadRequest(exception.Message);
+            }
             catch (Exception ex)
             {
                 this.logger.LogError("Exception occurred in login operation", ex);
@@ -84,9 +86,14 @@ namespace Kwetter.UserGateway.Controllers
                 account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
                 return Ok(account);
             }
-            catch (AuthenticationException exception)
+            catch (AuthenticateException exception)
             {
                 this.logger.LogError($"Registration exception occured ", exception, model.Username);
+                return BadRequest(exception.Message);
+            }
+            catch (ProfileException exception)
+            {
+                this.logger.LogError($"Profile exception occured in register operation", exception);
                 return BadRequest(exception.Message);
             }
             catch (Exception ex)

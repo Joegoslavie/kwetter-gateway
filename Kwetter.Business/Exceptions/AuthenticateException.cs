@@ -9,13 +9,13 @@
     /// <summary>
     /// Authentication exception class.
     /// </summary>
-    public class AuthenticationException : Exception
+    public class AuthenticateException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthenticationException"/> class.
+        /// Initializes a new instance of the <see cref="AuthenticateException"/> class.
         /// </summary>
         /// <param name="message"></param>
-        public AuthenticationException(string message)
+        public AuthenticateException(string message)
             : base (message)
         {
         }
