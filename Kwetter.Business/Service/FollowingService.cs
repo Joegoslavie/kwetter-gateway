@@ -1,10 +1,12 @@
 ﻿namespace Kwetter.Business.Service
 {
+    using Grpc.Net.Client;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Microservice.FollowingGRPCService;
 
     /// <summary>
     /// Following service.
@@ -43,6 +45,21 @@
         public async Task<bool> ToggleBlock(int userId, int blockId)
         {
             return false;
+        }
+
+        /// <summary>
+        /// Create a service call.
+        /// </summary>
+        /// <typeparam name="TParsedResponse">Parsed response.</typeparam>
+        /// <param name="responseHandler">Handler.</param>
+        /// <returns></returns>
+        private async Task<TParsedResponse> FollowClientCall<TParsedResponse>(Func<FollowingGRPCService.FollowingGRPCServiceClient, Task<TParsedResponse>> responseHandler)
+        {
+            using (var channel = GrpcChannel.ForAddress(this.settings.TweetServiceUrl))
+            {
+                var client = new FollowingGRPCService.FollowingGRPCServiceClient(channel);
+                return await responseHandler(client);
+            }
         }
     }
 }

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "Microservice.FollowingGRPCService";
+
+package domain;
+
+// The follow service definition.
+service FollowingGRPCService {
+  rpc GetFollowerIds (FollowRequest) returns (FollowResponse);
+  rpc GetFollowingIds (FollowRequest) returns (FollowResponse);
+}
+
+message FollowRequest {
+
+}
+
+message FollowResponse {
+
+}
