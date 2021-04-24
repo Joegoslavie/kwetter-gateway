@@ -1,5 +1,5 @@
-﻿using Kwetter.ServiceLayer.Model;
-using Kwetter.ServiceLayer.Service;
+﻿using Kwetter.Business.Model;
+using Kwetter.Business.Service;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kwetter.ServiceLayer.Manager
+namespace Kwetter.Business.Manager
 {
     public class AuthenticationManager
     {

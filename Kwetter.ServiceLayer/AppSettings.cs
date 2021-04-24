@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kwetter.ServiceLayer
+namespace Kwetter.Business
 {
     public class AppSettings
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kwetter.ServiceLayer.Exceptions
+namespace Kwetter.Business.Exceptions
 {
     public class AuthenticationException : Exception
     {

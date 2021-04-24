@@ -1,8 +1,7 @@
-﻿using Kwetter.ServiceLayer.Manager;
-using Kwetter.ServiceLayer.Model;
-using Kwetter.ServiceLayer.Service;
-using Kwetter.ServiceLayer.Validation;
-using Kwetter.UserGateway.Factory;
+﻿using Kwetter.Business.Manager;
+using Kwetter.Business.Model;
+using Kwetter.Business.Service;
+using Kwetter.Business.Validation;
 using Kwetter.UserGateway.VIewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -56,7 +55,7 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidatePassword(model.Password);
 
                 var account = await this.authManager.SignIn(model.Username, model.Password).ConfigureAwait(false);
-                account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, includeFollowers: true, includeFollowing: true).ConfigureAwait(false);
+                account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
                 return Ok(account);
             }
             catch (AuthenticationException exception)
@@ -82,7 +81,7 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidatePassword(model.Password, model.PasswordRepeated);
 
                 var account = await this.authManager.Register(model.Username, model.Password).ConfigureAwait(false);
-                account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, includeFollowers: true, includeFollowing: true).ConfigureAwait(false);
+                account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
                 return Ok(account);
             }
             catch (AuthenticationException exception)

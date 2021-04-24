@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kwetter.ServiceLayer.Model
+namespace Kwetter.Business.Model
 {
     public class Profile
     {

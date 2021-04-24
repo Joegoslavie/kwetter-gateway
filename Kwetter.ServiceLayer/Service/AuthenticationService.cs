@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microservice.AuthGRPCService;
-using Kwetter.ServiceLayer.Model;
-using Kwetter.ServiceLayer.Factory;
+using Kwetter.Business.Model;
+using Kwetter.Business.Factory;
 using System.Security.Authentication;
 
-namespace Kwetter.ServiceLayer.Service
+namespace Kwetter.Business.Service
 {
     public class AuthenticationService
     {

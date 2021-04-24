@@ -1,4 +1,4 @@
-﻿using Kwetter.ServiceLayer.Model;
+﻿using Kwetter.Business.Model;
 using Microservice.AuthGRPCService;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kwetter.ServiceLayer.Factory
+namespace Kwetter.Business.Factory
 {
     public class AccountFactory
     {
