@@ -5,7 +5,6 @@ using Kwetter.UserGateway.VIewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -55,7 +54,7 @@ namespace Kwetter.UserGateway.Controllers
                 account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
                 return Ok(account);
             }
-            catch (AuthenticationException exception)
+            catch (AuthenticateException exception)
             {
                 this.logger.LogError($"Authentication exception occured for user {model.Username}", exception);
                 return BadRequest(exception.Message);
