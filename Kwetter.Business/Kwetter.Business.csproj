@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Kwetter.DataAccess\Kwetter.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Protobuf Include="Protos\followservice.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\tweetservice.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\profileservice.proto" GrpcServices="Client" />

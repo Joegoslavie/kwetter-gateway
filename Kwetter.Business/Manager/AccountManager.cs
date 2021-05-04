@@ -1,8 +1,8 @@
 ﻿namespace Kwetter.Business.Manager
 {
-    using Kwetter.Business.Model;
-    using Kwetter.Business.Model.Enum;
-    using Kwetter.Business.Service;
+    using Kwetter.DataAccess.Model;
+    using Kwetter.DataAccess.Model.Enum;
+    using Kwetter.DataAccess.Service;
     using System;
     using System.Collections.Generic;
     using System.Linq;

@@ -18,15 +18,15 @@
         /// <summary>
         /// Access to the app configuration.
         /// </summary>
-        private readonly string endpoint;
+        private AppSettings settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TweetService"/> class.
         /// </summary>
-        /// <param name="endpoint">Endpoint address.</param>
-        public TweetService(string endpoint)
+        /// <param name="settings">Current application settings.</param>
+        public TweetService(AppSettings settings)
         {
-            this.endpoint = endpoint;
+            this.settings = settings;
         }
 
         /// <summary>
@@ -79,7 +79,7 @@
         /// <returns></returns>
         private async Task<TParsedResponse> TweetClientCall<TParsedResponse>(Func<TweetGRPCService.TweetGRPCServiceClient, Task<TParsedResponse>> responseHandler)
         {
-            using (var channel = GrpcChannel.ForAddress(this.endpoint))
+            using (var channel = GrpcChannel.ForAddress(this.settings.TweetServiceUrl))
             {
                 var client = new TweetGRPCService.TweetGRPCServiceClient(channel);
                 return await responseHandler(client);

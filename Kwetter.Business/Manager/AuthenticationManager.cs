@@ -1,12 +1,9 @@
 ﻿namespace Kwetter.Business.Manager
 {
-    using Kwetter.Business.Model;
-    using Kwetter.Business.Service;
+    using Kwetter.DataAccess.Model;
+    using Kwetter.DataAccess.Service;
     using Microsoft.Extensions.Logging;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     public class AuthenticationManager
