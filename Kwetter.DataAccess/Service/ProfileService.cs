@@ -1,9 +1,9 @@
-﻿namespace Kwetter.Business.Service
+﻿namespace Kwetter.DataAccess.Service
 {
     using Grpc.Net.Client;
-    using Kwetter.Business.Exceptions;
-    using Kwetter.Business.Factory;
-    using Kwetter.Business.Model;
+    using Kwetter.DataAccess.Exceptions;
+    using Kwetter.DataAccess.Factory;
+    using Kwetter.DataAccess.Model;
     using Microservice.ProfileGRPCService;
     using System;
     using System.Collections.Generic;

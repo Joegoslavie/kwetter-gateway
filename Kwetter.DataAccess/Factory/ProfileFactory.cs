@@ -1,11 +1,11 @@
-﻿namespace Kwetter.Business.Factory
+﻿namespace Kwetter.DataAccess.Factory
 {
-    using Kwetter.Business.Model;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Kwetter.DataAccess.Model;
     using Microservice.ProfileGRPCService;
 
     /// <summary>

@@ -5,21 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\authentication.proto" />
-    <None Remove="Protos\followservice.proto" />
-    <None Remove="Protos\profileservice.proto" />
-    <None Remove="Protos\tweetservice.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\followservice.proto" GrpcServices="Client" />
-    <Protobuf Include="Protos\tweetservice.proto" GrpcServices="Client" />
-    <Protobuf Include="Protos\profileservice.proto" GrpcServices="Client" />
-    <Protobuf Include="Protos\authentication.proto" GrpcServices="Client" />
+    <ProjectReference Include="..\Kwetter.DataAccess\Kwetter.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

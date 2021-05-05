@@ -1,4 +1,4 @@
-﻿namespace Kwetter.Business.Model.Enum
+﻿namespace Kwetter.DataAccess.Model.Enum
 {
     /// <summary>
     /// Enum that represents the type of follow relation.

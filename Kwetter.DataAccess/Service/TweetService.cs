@@ -1,6 +1,6 @@
-﻿namespace Kwetter.Business.Service
+﻿namespace Kwetter.DataAccess.Service
 {
-    using Kwetter.Business.Model;
+    using Kwetter.DataAccess.Model;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
     using Microservice.TweetGRPCService;
     using Grpc.Net.Client;
-    using Kwetter.Business.Factory;
+    using Kwetter.DataAccess.Factory;
 
     /// <summary>
     /// Tweet service.

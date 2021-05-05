@@ -1,4 +1,4 @@
-﻿namespace Kwetter.Business.Service
+﻿namespace Kwetter.DataAccess.Service
 {
     using Grpc.Net.Client;
     using System;
@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Microservice.FollowingGRPCService;
-    using Kwetter.Business.Model.Enum;
+    using Kwetter.DataAccess.Model.Enum;
 
     /// <summary>
     /// Following service.

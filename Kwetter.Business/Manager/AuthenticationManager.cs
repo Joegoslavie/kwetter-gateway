@@ -1,12 +1,9 @@
 ﻿namespace Kwetter.Business.Manager
 {
-    using Kwetter.Business.Model;
-    using Kwetter.Business.Service;
+    using Kwetter.DataAccess.Model;
+    using Kwetter.DataAccess.Service;
     using Microsoft.Extensions.Logging;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     public class AuthenticationManager
@@ -82,7 +79,12 @@
                 throw new ArgumentNullException(nameof(username));
             }
 
-            var account = await this.authService.Register(username, password).ConfigureAwait(false);
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            var account = await this.authService.Register(username, password, email).ConfigureAwait(false);
             this.logger.LogInformation($"@{username} created by user");
 
             return account;

@@ -1,4 +1,4 @@
-﻿namespace Kwetter.Business.Model
+﻿namespace Kwetter.DataAccess.Model
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Kwetter.Business.Model
+﻿namespace Kwetter.DataAccess.Model
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,7 @@
         /// Gets or sets the id of the user. 
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
@@ -30,7 +30,7 @@
         /// Gets or sets the JWT token.
         /// </summary>
         public string Token { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the profile.
         /// </summary>

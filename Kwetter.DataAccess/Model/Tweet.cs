@@ -1,4 +1,4 @@
-﻿namespace Kwetter.Business.Model
+﻿namespace Kwetter.DataAccess.Model
 {
     using System;
     using System.Collections.Generic;
@@ -29,7 +29,7 @@
         /// <summary>
         /// Gets or sets the content of the tweet.
         /// </summary>
-        public string Content { get;set; }
+        public string Content { get; set; }
 
         /// <summary>
         /// Gets or sets the avatar url.

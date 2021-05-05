@@ -1,13 +1,13 @@
-﻿using Kwetter.Business.Model;
-using Microservice.TweetGRPCService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kwetter.Business.Factory
+﻿namespace Kwetter.DataAccess.Factory
 {
+    using Kwetter.DataAccess.Model;
+    using Microservice.TweetGRPCService;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     class TweetFactory
     {
         internal static Tweet Parse(TweetResponseData response)

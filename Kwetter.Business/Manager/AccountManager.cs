@@ -1,8 +1,8 @@
 ﻿namespace Kwetter.Business.Manager
 {
-    using Kwetter.Business.Model;
-    using Kwetter.Business.Model.Enum;
-    using Kwetter.Business.Service;
+    using Kwetter.DataAccess.Model;
+    using Kwetter.DataAccess.Model.Enum;
+    using Kwetter.DataAccess.Service;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -57,28 +57,37 @@
             bool withFollowings = false,
             bool includeBlocked = false)
         {
-            var profile = await this.profileService.GetProfile(account.Id).ConfigureAwait(false);
-
-            if (includeTweets)
+            try
             {
-                var tweets = await this.tweetService.GetTweets(account.Id).ConfigureAwait(false);
-                profile.Tweets = tweets.ToList();
+                var profile = await this.profileService.GetProfile(account.Id).ConfigureAwait(false);
+
+                if (includeTweets)
+                {
+                    var tweets = await this.tweetService.GetTweets(account.Id).ConfigureAwait(false);
+                    profile.Tweets = tweets.ToList();
+                }
+
+                // profile page CEES
+                if (withFollowings)
+                {
+                    var followData = await this.followService.FetchIds(account.Id).ConfigureAwait(false);
+
+                    var followerProfiles = this.profileService.GetMultiple(followData[FollowType.Followers]);
+                    var followingProfiles = this.profileService.GetMultiple(followData[FollowType.Following]);
+                    await Task.WhenAll(followerProfiles, followingProfiles).ConfigureAwait(false);
+
+                    profile.Followers = followerProfiles.Result.ToList();
+                    profile.Following = followingProfiles.Result.ToList();
+                }
+
+                return profile;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
-            if (withFollowings)
-            {
-                var followData = await this.followService.FetchIds(account.Id).ConfigureAwait(false);
-
-                var followerProfiles = this.profileService.GetMultiple(followData[FollowType.Followers]);
-                var followingProfiles = this.profileService.GetMultiple(followData[FollowType.Following]);
-                await Task.WhenAll(followerProfiles, followingProfiles).ConfigureAwait(false);
-
-                profile.Followers = followerProfiles.Result.ToList();
-                profile.Following = followingProfiles.Result.ToList();
-            }
-
-            return profile;
-
+            return null;
         }
     }
 }
