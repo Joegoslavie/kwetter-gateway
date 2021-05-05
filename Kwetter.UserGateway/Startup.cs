@@ -15,6 +15,8 @@ namespace Kwetter.UserGateway
 {
     public class Startup
     {
+        readonly string corsPolicyName = "kwetterCorsPolicy";
+
         /// <summary>
         /// Configuration instance.
         /// </summary>
@@ -38,6 +40,17 @@ namespace Kwetter.UserGateway
             services.AddTransient<AccountManager>();
             services.AddTransient<AuthenticationManager>();
             services.AddTransient<TweetManager>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: corsPolicyName, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -82,7 +95,7 @@ namespace Kwetter.UserGateway
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(this.corsPolicyName);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

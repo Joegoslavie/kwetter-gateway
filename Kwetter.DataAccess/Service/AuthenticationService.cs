@@ -33,11 +33,11 @@
         /// <param name="username">Username to register.</param>
         /// <param name="password">Associated password.</param>
         /// <returns></returns>
-        public async Task<Account> Register(string username, string password)
+        public async Task<Account> Register(string username, string password, string email)
         {
             var response = await this.AuthenticationClientCall(async client =>
             {
-                return await client.RegisterAsync(new RegisterRequest { Username = username, Password = password, });
+                return await client.RegisterAsync(new RegisterRequest { Username = username, Password = password, Email = email });
             });
 
             if (!response.Status)

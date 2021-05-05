@@ -79,7 +79,12 @@
                 throw new ArgumentNullException(nameof(username));
             }
 
-            var account = await this.authService.Register(username, password).ConfigureAwait(false);
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            var account = await this.authService.Register(username, password, email).ConfigureAwait(false);
             this.logger.LogInformation($"@{username} created by user");
 
             return account;
