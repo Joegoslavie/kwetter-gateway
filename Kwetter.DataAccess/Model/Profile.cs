@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -9,6 +10,7 @@
     /// <summary>
     /// Profile model
     /// </summary>
+    [DebuggerDisplay("{DisplayName} | Tweets: {Tweets.Count} Followers: {Followers.Count} Following: {Following.Count}")]
     public class Profile
     {
         /// <summary>
@@ -55,6 +57,11 @@
         /// Gets or sets the followers of the user.
         /// </summary>
         public List<Profile> Followers { get; set; } = new List<Profile>();
+
+        /// <summary>
+        /// Gets or sets the tweets the user is mentioned in.
+        /// </summary>
+        public List<Tweet> Mentions { get; set; } = new List<Tweet>();
 
         /// <summary>
         /// Gets or sets the blocked users.

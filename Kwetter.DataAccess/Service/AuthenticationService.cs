@@ -61,11 +61,6 @@
                 return await client.SignInAsync(new SignInRequest { Username = username, Password = password, });
             });
 
-            if (!response.Status)
-            {
-                throw new AuthenticateException(response.Message);
-            }
-
             return AccountFactory.Parse(response);
         }
 

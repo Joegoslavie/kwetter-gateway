@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -9,6 +10,7 @@
     /// <summary>
     /// Account model.
     /// </summary>
+    [DebuggerDisplay("{Username} | id: {Id}")]
     public class Account
     {
         /// <summary>
@@ -40,10 +42,5 @@
         /// Gets or sets the timeline tweets of the user.
         /// </summary>
         public List<Tweet> Timeline { get; set; } = new List<Tweet>();
-
-        /// <summary>
-        /// Gets or sets the tweets the user is mentioned in.
-        /// </summary>
-        public List<Tweet> Mentions { get; set; } = new List<Tweet>();
     }
 }

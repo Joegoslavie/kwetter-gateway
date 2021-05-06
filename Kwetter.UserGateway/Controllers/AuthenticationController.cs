@@ -1,6 +1,7 @@
 ﻿using Kwetter.Business.Exceptions;
 using Kwetter.Business.Manager;
 using Kwetter.Business.Validation;
+using Kwetter.UserGateway.VIewModels.Account;
 using Kwetter.UserGateway.VIewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -51,23 +52,22 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidatePassword(model.Password);
 
                 var account = await this.authManager.SignIn(model.Username, model.Password).ConfigureAwait(false);
-                account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
-                return Ok(account);
+                account.Profile = await this.accountManager.GetProfile(account, includeTweets: false, withFollowings: false).ConfigureAwait(false);
+
+                var accountModel = new AccountViewModel(account);
+                return Ok(new AuthenticationResultModel(accountModel));
             }
             catch (AuthenticateException exception)
             {
-                this.logger.LogError($"Authentication exception occured for user {model.Username}", exception);
-                return BadRequest(exception.Message);
+                return BadRequest(new AuthenticationResultModel(false, exception.Message, null));
             }
             catch (ProfileException exception)
             {
-                this.logger.LogError($"Profile exception occured in login operation", exception);
-                return BadRequest(exception.Message);
+                return BadRequest(new AuthenticationResultModel(false, exception.Message, null));
             }
             catch (Exception ex)
             {
-                this.logger.LogError("Exception occurred in login operation", ex);
-                return BadRequest();
+                return BadRequest(new AuthenticationResultModel(false, "Oops.. something went wrong.", null));
             }
         }
 
@@ -87,18 +87,15 @@ namespace Kwetter.UserGateway.Controllers
             }
             catch (AuthenticateException exception)
             {
-                this.logger.LogError($"Registration exception occured ", exception, model.Username);
-                return BadRequest(exception.Message);
+                return BadRequest(new AuthenticationResultModel(false, exception.Message, null));
             }
             catch (ProfileException exception)
             {
-                this.logger.LogError($"Profile exception occured in register operation", exception);
-                return BadRequest(exception.Message);
+                return BadRequest(new AuthenticationResultModel(false, exception.Message, null));
             }
             catch (Exception ex)
             {
-                this.logger.LogError("Exception occurred in register operation", ex);
-                return BadRequest();
+                return BadRequest(new AuthenticationResultModel(false, "Oops.. something went wrong.", null));
             }
         }
     }

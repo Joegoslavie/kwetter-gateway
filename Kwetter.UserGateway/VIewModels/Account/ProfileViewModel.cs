@@ -7,6 +7,10 @@ namespace Kwetter.UserGateway.VIewModels.Account
 {
     public class ProfileViewModel
     {
+        public ProfileViewModel(DataAccess.Model.Profile profile)
+        {
+
+        }
         /// <summary>
         /// 
         /// </summary>

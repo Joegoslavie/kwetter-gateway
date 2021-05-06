@@ -15,8 +15,8 @@
         /// Initializes a new instance of the <see cref="AuthenticateException"/> class.
         /// </summary>
         /// <param name="message"></param>
-        public AuthenticateException(string message)
-            : base (message)
+        public AuthenticateException(string message, Exception? inner)
+            : base (message, inner)
         {
         }
     }

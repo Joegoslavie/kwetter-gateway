@@ -22,6 +22,7 @@
                 Id = response.Account.Id,
                 Username = response.Account.Username,
                 Email = response.Account.Email,
+                Token = response.Account.Token,
             };
         }
     }

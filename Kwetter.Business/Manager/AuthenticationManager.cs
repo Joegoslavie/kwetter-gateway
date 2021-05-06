@@ -1,5 +1,7 @@
 ﻿namespace Kwetter.Business.Manager
 {
+    using Grpc.Core;
+    using Kwetter.Business.Exceptions;
     using Kwetter.DataAccess.Model;
     using Kwetter.DataAccess.Service;
     using Microsoft.Extensions.Logging;
@@ -44,6 +46,8 @@
         /// <returns><see cref="Account"/> of the <paramref name="username"/>.</returns>
         public async Task<Account> SignIn(string username, string password)
         {
+
+            #region null checks
             if (string.IsNullOrEmpty(username))
             {
                 throw new ArgumentNullException(nameof(username));
@@ -53,11 +57,24 @@
             {
                 throw new ArgumentNullException(nameof(username));
             }
+            #endregion
 
-            var account = await this.authService.SignIn(username, password).ConfigureAwait(false);
-            this.logger.LogInformation($"User {username} authentication successfully");
+            try
+            {
+                this.logger.LogInformation($"Authenticating {username}");
+                var account = await this.authService.SignIn(username, password).ConfigureAwait(false);
 
-            return account;
+                return account;
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound || ex.StatusCode == StatusCode.Unauthenticated)
+            {
+                throw new AuthenticateException("Username and/or password incorrect", ex);
+            }
+            catch (RpcException ex)
+            {
+                this.logger.LogError("Exception occurred in authentication microservice", ex);
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -69,6 +86,7 @@
         /// <returns>Newly created <see cref="Account"/>.</returns>
         public async Task<Account> Register(string username, string password, string email)
         {
+            #region null checks
             if (string.IsNullOrEmpty(username))
             {
                 throw new ArgumentNullException(nameof(username));
@@ -83,11 +101,29 @@
             {
                 throw new ArgumentNullException(nameof(email));
             }
+            #endregion
 
-            var account = await this.authService.Register(username, password, email).ConfigureAwait(false);
-            this.logger.LogInformation($"@{username} created by user");
+            try
+            {
 
-            return account;
+                var account = await this.authService.Register(username, password, email).ConfigureAwait(false);
+                this.logger.LogInformation($"@{username} created by user");
+
+                return account;
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.AlreadyExists || ex.StatusCode == StatusCode.Unauthenticated)
+            {
+                throw new AuthenticateException("Username is already taken", ex);
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.Unauthenticated)
+            {
+                throw new AuthenticateException(ex.Message, ex);
+            }
+            catch (RpcException ex)
+            {
+                this.logger.LogError("Exception occurred in authentication microservice", ex);
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

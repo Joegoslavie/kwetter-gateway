@@ -1,8 +1,10 @@
 ﻿namespace Kwetter.Business.Manager
 {
+    using Grpc.Core;
     using Kwetter.DataAccess.Model;
     using Kwetter.DataAccess.Model.Enum;
     using Kwetter.DataAccess.Service;
+    using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,6 +16,11 @@
     /// </summary>
     public class AccountManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly ILogger<AccountManager> logger;
+
         /// <summary>
         /// Profile service instance.
         /// </summary>
@@ -35,7 +42,7 @@
         /// <param name="profileService"></param>
         /// <param name="tweetService"></param>
         /// <param name="followingService"></param>
-        public AccountManager(ProfileService profileService, TweetService tweetService, FollowingService followingService)
+        public AccountManager(ILogger<AccountManager> logger, ProfileService profileService, TweetService tweetService, FollowingService followingService)
         {
             this.profileService = profileService;
             this.tweetService = tweetService;
@@ -80,14 +87,23 @@
                     profile.Following = followingProfiles.Result.ToList();
                 }
 
+                if (includeBlocked)
+                {
+                    // retrieve blocked.
+                }
+
                 return profile;
+            }
+            catch (RpcException ex)
+            {
+                // From the other side.
+                throw new Exception("Exception occurred in microservice", ex);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                // This side, that side.. who knows.
+                throw new Exception(ex.Message, ex);
             }
-
-            return null;
         }
     }
 }
