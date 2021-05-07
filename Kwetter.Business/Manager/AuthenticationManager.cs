@@ -2,6 +2,7 @@
 {
     using Grpc.Core;
     using Kwetter.Business.Exceptions;
+    using Kwetter.DataAccess.Exceptions.Enum;
     using Kwetter.DataAccess.Model;
     using Kwetter.DataAccess.Service;
     using Microsoft.Extensions.Logging;
@@ -68,7 +69,7 @@
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound || ex.StatusCode == StatusCode.Unauthenticated)
             {
-                throw new AuthenticateException("Username and/or password incorrect", ex);
+                throw new AuthenticateException(KwetterError.Credentials, "Username and/or password incorrect", ex);
             }
             catch (RpcException ex)
             {
@@ -113,11 +114,11 @@
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.AlreadyExists || ex.StatusCode == StatusCode.Unauthenticated)
             {
-                throw new AuthenticateException("Username is already taken", ex);
+                throw new AuthenticateException(KwetterError.UsernameTaken, "Username is already taken", ex);
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.Unauthenticated)
             {
-                throw new AuthenticateException(ex.Message, ex);
+                throw new AuthenticateException(KwetterError.EmailTaken, ex.Message, ex);
             }
             catch (RpcException ex)
             {

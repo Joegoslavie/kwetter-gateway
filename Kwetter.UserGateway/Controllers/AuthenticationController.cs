@@ -59,7 +59,7 @@ namespace Kwetter.UserGateway.Controllers
             }
             catch (AuthenticateException exception)
             {
-                return BadRequest(new AuthenticationResultModel(false, exception.Message, null));
+                return BadRequest(new AuthenticationResultModel(exception.ErrroCode, exception.Message));
             }
             catch (ProfileException exception)
             {
@@ -87,7 +87,7 @@ namespace Kwetter.UserGateway.Controllers
             }
             catch (AuthenticateException exception)
             {
-                return BadRequest(new AuthenticationResultModel(false, exception.Message, null));
+                return BadRequest(new AuthenticationResultModel(exception.ErrroCode, exception.Message));
             }
             catch (ProfileException exception)
             {
