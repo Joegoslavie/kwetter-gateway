@@ -34,9 +34,22 @@
         /// </summary>
         /// <param name="userId">User id to retrieve data from.</param>
         /// <returns>Dictionary with type and ids that belong to the type.</returns>
-        public async Task<IDictionary<FollowType, IEnumerable<int>>> FetchIds(int userId)
+        public async Task<Dictionary<FollowType, List<int>>> FetchIds(int userId)
         {
-            throw new NotImplementedException();
+            var response = await this.FollowClientCall(async client =>
+            {
+                return await client.GetFollowIdsAsync(new FollowerRequest { UserId = userId });
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            Dictionary<FollowType, List<int>> followData = new Dictionary<FollowType, List<int>>();
+            followData.Add(FollowType.Following, response.Following.ToList());
+            followData.Add(FollowType.Followers, response.Followers.ToList());
+            return followData;
         }
 
         /// <summary>
@@ -45,9 +58,22 @@
         /// </summary>
         /// <param name="username">Username to retrieve data from.</param>
         /// <returns>Dictionary with type and ids that belong to the type.</returns>
-        public async Task<IDictionary<FollowType, IEnumerable<int>>> FetchIds(string username)
+        public async Task<Dictionary<FollowType, List<int>>> FetchIds(string username)
         {
-            throw new NotImplementedException();
+            var response = await this.FollowClientCall(async client =>
+            {
+                return await client.GetFollowIdsAsync(new FollowerRequest { Username = username });
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            Dictionary<FollowType, List<int>> followData = new Dictionary<FollowType, List<int>>();
+            followData.Add(FollowType.Following, response.Following.ToList());
+            followData.Add(FollowType.Followers, response.Followers.ToList());
+            return followData;
         }
 
         /// <summary>
@@ -60,7 +86,17 @@
         /// and <see cref="false"/> that an unfollow operation was performed.</returns>
         public async Task<bool> ToggleFollow(int userId, int followId)
         {
-            throw new NotImplementedException();
+            var response = await this.FollowClientCall(async client =>
+            {
+                return await client.ToggleFollowAsync(new FollowRequest { UserId = userId, FollowingId = followId });
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            return response.Message == "Following user" ? true : false;
         }
 
         /// <summary>
@@ -73,7 +109,17 @@
         /// and <see cref="false"/> that an unblock operation was performed.</returns>
         public async Task<bool> ToggleBlock(int userId, int blockId)
         {
-            throw new NotImplementedException();
+            var response = await this.FollowClientCall(async client =>
+            {
+                return await client.ToggleBlockAsync(new BlockRequest { UserId = userId, BlockId = blockId });
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            return response.Message == "Blocked user" ? true : false;
         }
 
         /// <summary>
@@ -82,11 +128,11 @@
         /// <typeparam name="TParsedResponse">Parsed response.</typeparam>
         /// <param name="responseHandler">Handler.</param>
         /// <returns></returns>
-        private async Task<TParsedResponse> FollowClientCall<TParsedResponse>(Func<FollowingGRPCService.FollowingGRPCServiceClient, Task<TParsedResponse>> responseHandler)
+        private async Task<TParsedResponse> FollowClientCall<TParsedResponse>(Func<FollowGRPCService.FollowGRPCServiceClient, Task<TParsedResponse>> responseHandler)
         {
-            using (var channel = GrpcChannel.ForAddress(this.settings.TweetServiceUrl))
+            using (var channel = GrpcChannel.ForAddress(this.settings.FollowService))
             {
-                var client = new FollowingGRPCService.FollowingGRPCServiceClient(channel);
+                var client = new FollowGRPCService.FollowGRPCServiceClient(channel);
                 return await responseHandler(client);
             }
         }

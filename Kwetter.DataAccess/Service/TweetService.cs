@@ -39,7 +39,7 @@
         {
             var response = await this.TweetClientCall(async client =>
             {
-                return await client.GetTweetsByUserIdAsync(new TweetRequest { UserId = userId, Amount = amount, });
+                return await client.GetTweetsByUserIdAsync(new TweetRequest { UserId = userId, });
             });
 
             if (!response.Status)
@@ -55,9 +55,19 @@
         /// </summary>
         /// <param name="tweetId"></param>
         /// <returns></returns>
-        public async Task<bool> ToggleLike(int tweetId)
+        public async Task<bool> ToggleLike(int userId, int tweetId)
         {
-            throw new NotImplementedException();
+            var response = await this.TweetClientCall(async client =>
+            {
+                return await client.ToggleLikeAsync(new TweetOperationRequest { UserId = userId, TweetId = tweetId, });
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -68,7 +78,17 @@
         /// <returns></returns>
         public async Task<Tweet> Place(int userId, string message)
         {
-            throw new NotImplementedException();
+            var response = await this.TweetClientCall(async client =>
+            {
+                return await client.PlaceTweetAsync(new PlaceTweetRequest { UserId = userId, Content = message, });
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            return TweetFactory.Parse(response.Tweets.FirstOrDefault());
         }
 
         /// <summary>

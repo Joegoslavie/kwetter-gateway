@@ -106,7 +106,6 @@
 
             try
             {
-
                 var account = await this.authService.Register(username, password, email).ConfigureAwait(false);
                 this.logger.LogInformation($"@{username} created by user");
 

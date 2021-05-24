@@ -12,22 +12,22 @@ namespace Kwetter.UserGateway.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class ProfileController : ControllerBase
     {
         /// <summary>
         /// Logger instance for this controller.
         /// </summary>
-        private readonly ILogger<AccountController> logger;
+        private readonly ILogger<ProfileController> logger;
 
-        /// <summary>
-        /// Account manager for doing account related operations.
-        /// </summary>
-        private readonly AccountManager accountManager;
-
-        public AccountController(AccountManager manager, ILogger<AccountController> logger)
+        public ProfileController(ILogger<ProfileController> logger)
         {
-            this.accountManager = manager;
             this.logger = logger;
+        }
+
+        [HttpGet]
+        public IActionResult View()
+        {
+            return null;
         }
     }
 }

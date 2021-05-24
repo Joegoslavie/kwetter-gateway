@@ -9,13 +9,28 @@ service TweetGRPCService {
   rpc GetTweetsByUserId (TweetRequest) returns (TweetResponse);
   rpc GetTweetsByUsername (TweetRequest) returns (TweetResponse);
   rpc GetTweetsByUserIds (TweetRequest) returns (TweetResponse);
+
+  rpc PlaceTweet (PlaceTweetRequest) returns (TweetResponse);
+  rpc ToggleLike (TweetOperationRequest) returns (TweetResponse);
+  rpc RegisterMention (TweetOperationRequest) returns (TweetResponse);
+  rpc RegisterHashtag (TweetOperationRequest) returns (TweetResponse);
 }
 
 message TweetRequest {
 	int32 userId = 1;
 	string username = 2;
 	repeated int32 userIds = 3;
-	int32 amount = 4;
+}
+
+message PlaceTweetRequest {
+	int32 userId = 1;
+	string content = 2;
+}
+
+message TweetOperationRequest {
+	int32 userId = 1;
+	int32 tweetId = 2;
+	string tag = 3;
 }
 
 message TweetResponse {
@@ -25,13 +40,11 @@ message TweetResponse {
 }
 
 message TweetResponseData {
-	int32 id = 1;
-	int32 userId = 2;
-	string username = 3;
-	string displayName = 4;
-	string description = 5;
-	string websiteUri = 6;
-	string location = 7;
-	string avatarUri = 8;
-	int64 createdAt = 9;
+	int32 userId = 1;
+	string username = 2;
+	string displayName = 3;
+	string avatarUrl = 4;
+	string content = 5;
+	int64 createdAt = 6;
+	int32 id = 7;
 }

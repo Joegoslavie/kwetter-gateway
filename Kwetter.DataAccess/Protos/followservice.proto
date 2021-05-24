@@ -5,15 +5,34 @@ option csharp_namespace = "Microservice.FollowingGRPCService";
 package domain;
 
 // The follow service definition.
-service FollowingGRPCService {
-  rpc GetFollowerIds (FollowRequest) returns (FollowResponse);
-  rpc GetFollowingIds (FollowRequest) returns (FollowResponse);
+service FollowGRPCService {
+  rpc ToggleBlock (BlockRequest) returns (OperationResponse);
+  rpc ToggleFollow (FollowRequest) returns (OperationResponse);
+  rpc GetFollowIdsByUsername (FollowerRequest) returns (OperationResponse);
+  rpc GetFollowIds (FollowerRequest) returns (OperationResponse);
 }
 
+// The request message containing the user's name.
+message BlockRequest {
+  int32 UserId = 1;
+  int32 BlockId = 2;
+}
+
+// The response message containing the greetings.
 message FollowRequest {
-
+  int32 UserId = 1;
+  int32 FollowingId = 2;
 }
 
-message FollowResponse {
-
+message FollowerRequest {
+	int32 UserId = 1;
+	string Username = 2;
 }
+
+message OperationResponse {
+	bool Status = 1;
+	string Message = 2;
+	repeated int32 following = 3;
+	repeated int32 followers = 4;
+}
+

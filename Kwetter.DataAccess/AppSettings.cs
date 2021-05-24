@@ -43,6 +43,11 @@
         /// </summary>
         public string TweetServiceUrl => this.config.GetValue<string>(this.TweetServiceKey);
 
+        /// <summary>
+        /// Gets the follow service endpoint url from the configuration.
+        /// </summary>
+        public string FollowService => this.config.GetValue<string>(this.FollowServiceKey);
+
         #endregion
 
         #region keys
@@ -61,6 +66,11 @@
         /// Sets the app key to use for the tweet service.
         /// </summary>
         public string TweetServiceKey { private get; set; } = "Microservices:TweetService";
+
+        /// <summary>
+        /// Sets the app key to use for the follow service.
+        /// </summary>
+        public string FollowServiceKey { private get; set; } = "Microservices:FollowService";
 
         #endregion
     }

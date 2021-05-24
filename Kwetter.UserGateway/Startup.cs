@@ -1,6 +1,7 @@
 using Kwetter.Business.Manager;
 using Kwetter.DataAccess;
 using Kwetter.DataAccess.Service;
+using Kwetter.UserGateway.Attribute;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -97,7 +98,7 @@ namespace Kwetter.UserGateway
             app.UseRouting();
             app.UseCors(this.corsPolicyName);
             app.UseAuthorization();
-
+            app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

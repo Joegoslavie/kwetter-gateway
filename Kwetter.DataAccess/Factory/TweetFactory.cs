@@ -22,8 +22,8 @@
                 Id = response.Id,
                 Username = response.Username,
                 DisplayName = response.DisplayName,
-                AvatarUrl = response.AvatarUri,
-                Content = response.Description,
+                AvatarUrl = response.AvatarUrl,
+                Content = response.Content,
                 CreatedAt = new DateTime(response.CreatedAt),
             };
         }
