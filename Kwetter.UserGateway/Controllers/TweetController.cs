@@ -58,9 +58,9 @@ namespace Kwetter.UserGateway.Controllers
         [Route("new")]
         public async Task<IActionResult> New([FromBody] NewTweetViewModel model)
         {
-            var identity = base.GetAuthenticatedUser();
             try
-            { 
+            {
+                var identity = base.GetAuthenticatedUser();
                 var tweet = await this.manager.Place(identity.Id, model.Content).ConfigureAwait(false);
                 return Ok(tweet);
             }

@@ -31,6 +31,40 @@
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="displayName"></param>
+        /// <param name="websiteUrl"></param>
+        /// <param name="description"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public async Task<Profile> Update(int id, string username, string displayName, string websiteUrl, string description, string location)
+        {
+            var response = await this.ProfileClientCall(async client =>
+            {
+                var request = new UpdateProfileRequest
+                {
+                    UserId = id,
+                    Username = username,
+                    DisplayName = displayName ?? string.Empty,
+                    WebsiteUri = websiteUrl ?? string.Empty,
+                    Description = description ?? string.Empty,
+                    Location = location ?? string.Empty,
+                    AvatarUri = "default.jpg",
+                };
+                return await client.UpdateProfileAsync(request);
+            });
+
+            if (!response.Status)
+            {
+                throw new ProfileException(response.Message);
+            }
+
+            return ProfileFactory.Parse(response);
+        }
+
+        /// <summary>
         /// Gets the profile related to the user id.
         /// </summary>
         /// <param name="userId">The user id.</param>

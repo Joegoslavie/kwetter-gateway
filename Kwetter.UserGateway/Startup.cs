@@ -41,6 +41,8 @@ namespace Kwetter.UserGateway
             services.AddTransient<AccountManager>();
             services.AddTransient<AuthenticationManager>();
             services.AddTransient<TweetManager>();
+            services.AddTransient<ProfileManager>();
+            services.AddTransient<FollowManager>();
 
             services.AddCors(options =>
             {
