@@ -51,6 +51,27 @@
         }
 
         /// <summary>
+        /// Retrieves the tweets created by the passed <paramref name="userId"/>.
+        /// </summary>
+        /// <param name="username">User name.</param>
+        /// <param name="amount">Amount of tweets to retrieve.</param>
+        /// <returns>List of <see cref="Tweet"/>s.</returns>
+        public async Task<IEnumerable<Tweet>> GetTweets(string username, int amount = 150)
+        {
+            var response = await this.TweetClientCall(async client =>
+            {
+                return await client.GetTweetsByUserIdAsync(new TweetRequest { Username = username, });
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            return response.Tweets.Select(t => TweetFactory.Parse(t));
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="tweetId"></param>
@@ -89,6 +110,29 @@
             }
 
             return TweetFactory.Parse(response.Tweets.FirstOrDefault());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<List<Tweet>> GetTimeline(List<int> userIds)
+        {
+            var response = await this.TweetClientCall(async client =>
+            {
+                var request = new TweetRequest();
+                request.UserIds.AddRange(userIds);
+
+                return await client.GetTweetsByUserIdsAsync(request);
+            });
+
+            if (!response.Status)
+            {
+                throw new Exception(response.Message);
+            }
+
+            return response.Tweets.Select(t => TweetFactory.Parse(t)).ToList();
         }
 
         /// <summary>

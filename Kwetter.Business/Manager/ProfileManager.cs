@@ -21,6 +21,22 @@ namespace Kwetter.Business.Manager
             this.service = profileService;
         }
 
+        public async Task<List<Profile>> Get(List<int> userIds)
+        {
+            var profiles = await this.service.GetMultiple(userIds).ConfigureAwait(false);
+            return profiles.ToList();
+        }
+
+        public async Task<Profile> Get(int userId)
+        {
+            return await this.service.GetProfile(userId).ConfigureAwait(false);
+        }
+
+        public async Task<Profile> Get(string username)
+        {
+            return await this.service.GetProfileByUsername(username).ConfigureAwait(false);
+        }
+
         public async Task<Profile> Update(int id, string username, string displayName, string websiteUrl, string description, string location)
         {
             return await this.service.Update(id, username, displayName, websiteUrl, description, location).ConfigureAwait(false);

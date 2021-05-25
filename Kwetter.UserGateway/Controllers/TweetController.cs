@@ -40,18 +40,44 @@ namespace Kwetter.UserGateway.Controllers
         [Route("timeline")]
         public async Task<IActionResult> Timeline()
         {
-            var identity = base.GetAuthenticatedUser();
             try
             {
-                this.manager.GetTimeline();
+                var identity = base.GetAuthenticatedUser();
+                var tweets = await this.manager.GetTimeline(identity.Id);
+                return Ok(tweets);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return BadRequest(ex.Message);
             }
+        }
 
-            return null;
+        [HttpGet]
+        public async Task<IActionResult> Get(string username)
+        {
+            try
+            {
+                var tweets = await this.manager.GetTweetsByUsername(username).ConfigureAwait(false);
+                return Ok(tweets);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(int userId)
+        {
+            try
+            {
+                var tweets = await this.manager.GetTweetsById(userId).ConfigureAwait(false);
+                return Ok(tweets);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -66,16 +92,24 @@ namespace Kwetter.UserGateway.Controllers
             }
             catch (Exception ex)
             {
-                var exs = ex;
                 return BadRequest(ex.Message);
             }
         }
 
         [HttpPost]
         [Route("post")]
-        public IActionResult Like([FromBody] LikeTweetViewModel model)
+        public async Task<IActionResult> Like([FromBody] LikeTweetViewModel model)
         {
-            return null;
+            try
+            {
+                var identity = base.GetAuthenticatedUser();
+                var result = await this.manager.ToggleLike(identity.Id, model.TweetId).ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

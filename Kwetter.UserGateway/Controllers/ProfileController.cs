@@ -31,6 +31,20 @@ namespace Kwetter.UserGateway.Controllers
             this.manager = manager;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> View(string username)
+        {
+            try
+            {
+                var profile = await this.manager.Get(username).ConfigureAwait(false);
+                return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody] UpdateProfileViewModel model)
