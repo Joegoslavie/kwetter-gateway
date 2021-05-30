@@ -23,12 +23,14 @@ namespace Kwetter.UserGateway.Controllers
         /// </summary>
         private readonly ILogger<ProfileController> logger;
 
-        private readonly ProfileManager manager;
+        private readonly ProfileManager profileManager;
+        private readonly FollowManager followManager;
 
-        public ProfileController(ILogger<ProfileController> logger, ProfileManager manager)
+        public ProfileController(ILogger<ProfileController> logger, ProfileManager profileManager, FollowManager followManager)
         {
             this.logger = logger;
-            this.manager = manager;
+            this.profileManager = profileManager;
+            this.followManager = followManager;
         }
 
         [HttpGet]
@@ -36,8 +38,24 @@ namespace Kwetter.UserGateway.Controllers
         {
             try
             {
-                var profile = await this.manager.Get(username).ConfigureAwait(false);
+                var profile = await this.profileManager.Get(username).ConfigureAwait(false);
                 return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("follow")]
+        public async Task<IActionResult> Follow(int userId)
+        {
+            try
+            {
+                var currentUser = base.GetAuthenticatedUser();
+                var result = await this.followManager.ToggleFollow(currentUser.Id, userId).ConfigureAwait(false);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -52,7 +70,7 @@ namespace Kwetter.UserGateway.Controllers
             try
             {
                 var currentUser = base.GetAuthenticatedUser();
-                var updatedProfile = await this.manager.Update(currentUser.Id, currentUser.Username, model.DisplayName, model.WebsiteUrl, model.Description, model.Location).ConfigureAwait(false);
+                var updatedProfile = await this.profileManager.Update(currentUser.Id, currentUser.Username, model.DisplayName, model.WebsiteUrl, model.Description, model.Location).ConfigureAwait(false);
                 var viewModel = new ProfileViewModel(updatedProfile);
                 return Ok(viewModel);
             }
