@@ -62,7 +62,7 @@
         {
             var response = await this.FollowClientCall(async client =>
             {
-                return await client.GetFollowIdsAsync(new FollowerRequest { Username = username });
+                return await client.GetFollowIdsByUsernameAsync(new FollowerRequest { Username = username });
             });
 
             if (!response.Status)

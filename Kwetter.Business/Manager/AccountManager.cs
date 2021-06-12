@@ -79,8 +79,10 @@
                 {
                     var followData = await this.followService.FetchIds(account.Id).ConfigureAwait(false);
 
-                    var followerProfiles = this.profileService.GetMultiple(followData[FollowType.Followers]);
-                    var followingProfiles = this.profileService.GetMultiple(followData[FollowType.Following]);
+                    Task<IEnumerable<Profile>> followerProfiles = this.profileService.GetMultiple(followData[FollowType.Followers]);
+                    Task<IEnumerable<Profile>> followingProfiles = this.profileService.GetMultiple(followData[FollowType.Following]);
+
+                    // todo: check if follower/following > 0 to make call
                     await Task.WhenAll(followerProfiles, followingProfiles).ConfigureAwait(false);
 
                     profile.Followers = followerProfiles.Result.ToList();

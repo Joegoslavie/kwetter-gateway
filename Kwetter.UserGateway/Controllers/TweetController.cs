@@ -53,6 +53,7 @@ namespace Kwetter.UserGateway.Controllers
         }
 
         [HttpGet]
+        [Route("byName")]
         public async Task<IActionResult> Get(string username)
         {
             try
@@ -67,6 +68,7 @@ namespace Kwetter.UserGateway.Controllers
         }
 
         [HttpGet]
+        [Route("byId")]
         public async Task<IActionResult> Get(int userId)
         {
             try
@@ -97,7 +99,7 @@ namespace Kwetter.UserGateway.Controllers
         }
 
         [HttpPost]
-        [Route("post")]
+        [Route("like")]
         public async Task<IActionResult> Like([FromBody] LikeTweetViewModel model)
         {
             try

@@ -37,17 +37,24 @@
         /// <returns>List of <see cref="Tweet"/>s.</returns>
         public async Task<IEnumerable<Tweet>> GetTweets(int userId, int amount = 150)
         {
-            var response = await this.TweetClientCall(async client =>
+            try
             {
-                return await client.GetTweetsByUserIdAsync(new TweetRequest { UserId = userId, });
-            });
+                var response = await this.TweetClientCall(async client =>
+                {
+                    return await client.GetTweetsByUserIdAsync(new TweetRequest { UserId = userId, });
+                });
 
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
+                if (!response.Status)
+                {
+                    throw new Exception(response.Message);
+                }
+
+                return response.Tweets.Select(t => TweetFactory.Parse(t));
             }
-
-            return response.Tweets.Select(t => TweetFactory.Parse(t));
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -60,7 +67,7 @@
         {
             var response = await this.TweetClientCall(async client =>
             {
-                return await client.GetTweetsByUserIdAsync(new TweetRequest { Username = username, });
+                return await client.GetTweetsByUsernameAsync(new TweetRequest { Username = username, });
             });
 
             if (!response.Status)
@@ -83,12 +90,7 @@
                 return await client.ToggleLikeAsync(new TweetOperationRequest { UserId = userId, TweetId = tweetId, });
             });
 
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
-            }
-
-            return true;
+            return response.Status;
         }
 
         /// <summary>

@@ -82,8 +82,11 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidatePassword(model.Password, model.PasswordRepeated);
 
                 var account = await this.authManager.Register(model.Username, model.Password, email: model.Email).ConfigureAwait(false);
+                
+                // Give Kafka time to process the profile.
+                await Task.Delay(TimeSpan.FromSeconds(3));
                 account.Profile = await this.accountManager.GetProfile(account, includeTweets: false, withFollowings: false).ConfigureAwait(false);
-                return Ok(account);
+                return Ok(new AuthenticationResultModel(new AccountViewModel(account)));
             }
             catch (AuthenticateException exception)
             {
