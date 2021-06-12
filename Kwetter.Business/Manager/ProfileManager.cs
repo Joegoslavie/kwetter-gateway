@@ -47,7 +47,7 @@ namespace Kwetter.Business.Manager
             var tweetReq = this.tweetService.GetTweets(username, 50);
             await Task.WhenAll(tweetReq, followers, following).ConfigureAwait(false);
 
-            profile.Tweets = tweetReq.Result.ToList();
+            profile.Tweets = tweetReq.Result.ToList().OrderByDescending(x => x.CreatedAt).ToList();
             profile.Following = following.Result.ToList();
             profile.Followers = followers.Result.ToList();
 

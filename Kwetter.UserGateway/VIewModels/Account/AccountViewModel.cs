@@ -13,7 +13,6 @@ namespace Kwetter.UserGateway.VIewModels.Account
             this.Username = account.Username;
             this.Email = account.Email;
             this.Token = account.Token;
-            this.Tweets = account.Profile.Tweets.Select(x => new TweetViewModel(x)).ToList();
             this.Profile = new ProfileViewModel(account.Profile);
         }
 
@@ -36,8 +35,6 @@ namespace Kwetter.UserGateway.VIewModels.Account
         /// Gets or sets the JWT token.
         /// </summary>
         public string Token { get; set; }
-
-        public List<TweetViewModel> Tweets { get; set; } = new List<TweetViewModel>();
 
         /// <summary>
         /// 
