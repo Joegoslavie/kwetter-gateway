@@ -81,12 +81,15 @@
 
                     Task<IEnumerable<Profile>> followerProfiles = this.profileService.GetMultiple(followData[FollowType.Followers]);
                     Task<IEnumerable<Profile>> followingProfiles = this.profileService.GetMultiple(followData[FollowType.Following]);
-
+                    Task<List<Tweet>> timeline = this.tweetService.GetTimeline(followData[FollowType.Following]);
+                    // add timeline here
+                    //                         account.Timeline = this.tweetService.GetTimeline(account.Id).ConfigureAwait(false);
                     // todo: check if follower/following > 0 to make call
-                    await Task.WhenAll(followerProfiles, followingProfiles).ConfigureAwait(false);
+                    await Task.WhenAll(followerProfiles, followingProfiles, timeline).ConfigureAwait(false);
 
                     profile.Followers = followerProfiles.Result.ToList();
                     profile.Following = followingProfiles.Result.ToList();
+                    account.Timeline = timeline.Result;
                 }
 
                 if (includeBlocked)

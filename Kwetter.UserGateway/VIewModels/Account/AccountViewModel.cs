@@ -14,6 +14,12 @@ namespace Kwetter.UserGateway.VIewModels.Account
             this.Email = account.Email;
             this.Token = account.Token;
             this.Profile = new ProfileViewModel(account.Profile);
+            this.Timeline = account.Timeline.Select(x => new TweetViewModel(x)).ToList();
+        }
+
+        public AccountViewModel()
+        {
+
         }
 
         /// <summary>

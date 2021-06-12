@@ -19,6 +19,12 @@ namespace Kwetter.UserGateway.VIewModels.Account
             this.Following = profile.Following.Select(x => new ProfileViewModel(x)).ToList();
             this.Tweets = profile.Tweets.Select(x => new TweetViewModel(x)).ToList();
         }
+
+        public ProfileViewModel()
+        {
+
+        }
+
         /// <summary>
         /// 
         /// </summary>

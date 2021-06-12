@@ -18,6 +18,11 @@ namespace Kwetter.UserGateway.VIewModels.Account
             this.CreatedAt = tweet.CreatedAt;
         }
 
+        public TweetViewModel()
+        {
+
+        }
+
         public int Id { get; set; }
         public string Content { get; set; }
         public string AvatarUrl { get; set; }

@@ -28,6 +28,11 @@ namespace Kwetter.UserGateway.VIewModels.Authentication
             this.Message = message;
         }
 
+        public AuthenticationResultModel()
+        {
+
+        }
+
         public bool Succeeded { get; }
         public int ErrorCode { get; }
         public string Message { get; }

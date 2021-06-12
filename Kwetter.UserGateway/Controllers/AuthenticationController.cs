@@ -5,6 +5,7 @@ using Kwetter.UserGateway.VIewModels.Account;
 using Kwetter.UserGateway.VIewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
@@ -43,6 +44,19 @@ namespace Kwetter.UserGateway.Controllers
 
         // POST api/<AuthenticationController>
         [HttpPost]
+        [Route("login2")]
+        public async Task<IActionResult> Login2([FromBody] LoginViewModel model)
+        {
+
+            // little hack to continue development when I dont have the full env ready.
+            var authModel = JsonConvert.DeserializeObject<AuthenticationResultModel>(System.IO.File.ReadAllText(@"C:\Users\Hugo\source\repos\C#\KwetterGateways\Kwetter.UserGateway\kwetter-data.json"));
+            await Task.Delay(TimeSpan.FromSeconds(1));
+
+            return Ok(authModel);
+        }
+
+        // POST api/<AuthenticationController>
+        [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
@@ -55,7 +69,10 @@ namespace Kwetter.UserGateway.Controllers
                 account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
 
                 var accountModel = new AccountViewModel(account);
-                return Ok(new AuthenticationResultModel(accountModel));
+                var authModel = new AuthenticationResultModel(accountModel);
+
+                System.IO.File.WriteAllText("kwetter-data.json", JsonConvert.SerializeObject(authModel));
+                return Ok(authModel);
             }
             catch (AuthenticateException exception)
             {
