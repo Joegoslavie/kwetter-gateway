@@ -48,8 +48,8 @@ namespace Kwetter.UserGateway.Controllers
         public async Task<IActionResult> Login2([FromBody] LoginViewModel model)
         {
 
-            // little hack to continue development when I dont have the full env ready.
-            var authModel = JsonConvert.DeserializeObject<AuthenticationResultModel>(System.IO.File.ReadAllText(@"C:\Users\Hugo\source\repos\C#\KwetterGateways\Kwetter.UserGateway\kwetter-data.json"));
+            // little hack to continue development when I dont have the full env available.
+            var authModel = JsonConvert.DeserializeObject<AuthenticationResultModel>(System.IO.File.ReadAllText("PATH_HERE"));
             await Task.Delay(TimeSpan.FromSeconds(1));
 
             return Ok(authModel);
