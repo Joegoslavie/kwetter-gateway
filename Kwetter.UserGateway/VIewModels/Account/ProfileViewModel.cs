@@ -17,7 +17,14 @@ namespace Kwetter.UserGateway.VIewModels.Account
             this.AvatarUrl = profile.AvatarUrl;
             this.Followers = profile.Followers.Select(x => new ProfileViewModel(x)).ToList();
             this.Following = profile.Following.Select(x => new ProfileViewModel(x)).ToList();
+            this.Tweets = profile.Tweets.Select(x => new TweetViewModel(x)).ToList();
         }
+
+        public ProfileViewModel()
+        {
+
+        }
+
         /// <summary>
         /// 
         /// </summary>

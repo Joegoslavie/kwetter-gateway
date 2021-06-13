@@ -39,6 +39,7 @@ namespace Kwetter.UserGateway.Controllers
             try
             {
                 var profile = await this.profileManager.Get(username).ConfigureAwait(false);
+                // get followers and following too?
                 return Ok(profile);
             }
             catch (Exception ex)

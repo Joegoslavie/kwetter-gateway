@@ -44,14 +44,18 @@ namespace Kwetter.UserGateway.Controllers
         [Route("followers")]
         public async Task<IActionResult> GetFollowers()
         {
-            return Ok();
+            var user = base.GetAuthenticatedUser();
+            var profile = await this.manager.FullProfile(user.Id).ConfigureAwait(false);
+            return Ok(profile.Followers);
         }
 
         [HttpGet]
         [Route("following")]
         public async Task<IActionResult> GetFollowing()
         {
-            return Ok();
+            var user = base.GetAuthenticatedUser();
+            var profile = await this.manager.FullProfile(user.Id).ConfigureAwait(false);
+            return Ok(profile.Following);
         }
     }
 }

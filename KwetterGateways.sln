@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.ModerationGateway",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.Business", "Kwetter.Business\Kwetter.Business.csproj", "{51F6CA66-3D31-4DE7-9745-04E46118E9BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kwetter.DataAccess", "Kwetter.DataAccess\Kwetter.DataAccess.csproj", "{86B536E9-307D-4D1F-B3D2-9419C9DF3B99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.DataAccess", "Kwetter.DataAccess\Kwetter.DataAccess.csproj", "{86B536E9-307D-4D1F-B3D2-9419C9DF3B99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

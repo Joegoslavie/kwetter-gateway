@@ -19,6 +19,12 @@
         public string Username { get; set; }
 
         /// <summary>
+        /// Gets or sets the user id from the account ms.
+        /// Todo: dont serialize to front-end
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
         /// Gets or sets the profile display name.
         /// </summary>
         public string DisplayName { get; set; }

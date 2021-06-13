@@ -28,9 +28,14 @@ namespace Kwetter.UserGateway.VIewModels.Authentication
             this.Message = message;
         }
 
-        public bool Succeeded { get; }
-        public int ErrorCode { get; }
-        public string Message { get; }
-        public AccountViewModel Account { get; }
+        public AuthenticationResultModel()
+        {
+
+        }
+
+        public bool Succeeded { get; set; }
+        public int ErrorCode { get; set; }
+        public string Message { get; set; }
+        public AccountViewModel Account { get; set; }
     }
 }

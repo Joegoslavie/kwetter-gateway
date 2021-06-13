@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Faker.Net" Version="1.5.138" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
   </ItemGroup>
 

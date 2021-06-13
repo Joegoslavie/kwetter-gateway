@@ -52,6 +52,7 @@
         {
             return new Profile 
             { 
+                UserId = response.UserId,
                 Username = response.Username,
                 DisplayName = response.DisplayName,
                 Description = response.Description,

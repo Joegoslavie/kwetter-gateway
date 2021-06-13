@@ -9,6 +9,7 @@ namespace Kwetter.UserGateway.VIewModels.Tweet
     public class NewTweetViewModel
     {
         [Required]
+        [StringLength(140, MinimumLength = 3, ErrorMessage = "Max 140 characters")]
         public string Content { get; set; }
     }
 }

@@ -111,6 +111,11 @@
         /// <returns>List of <see cref="Profile"/>.</returns>
         public async Task<IEnumerable<Profile>> GetMultiple(IEnumerable<int> userIds)
         {
+            if (!userIds.Any())
+            {
+                return new List<Profile>();
+            }
+
             var response = await this.ProfileClientCall(async client =>
             {
                 var request = new ProfileRequest();

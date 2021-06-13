@@ -1,4 +1,5 @@
 using Kwetter.Business.Manager;
+using Kwetter.Business.Seed;
 using Kwetter.DataAccess;
 using Kwetter.DataAccess.Service;
 using Kwetter.UserGateway.Attribute;
@@ -11,12 +12,15 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Kwetter.UserGateway
 {
     public class Startup
     {
         readonly string corsPolicyName = "kwetterCorsPolicy";
+        private readonly bool runSeeder = false;
+        private readonly int usersToSeed = 10;
 
         /// <summary>
         /// Configuration instance.
@@ -43,6 +47,7 @@ namespace Kwetter.UserGateway
             services.AddTransient<TweetManager>();
             services.AddTransient<ProfileManager>();
             services.AddTransient<FollowManager>();
+            services.AddTransient<KwetterSeeder>();
 
             services.AddCors(options =>
             {
@@ -93,6 +98,28 @@ namespace Kwetter.UserGateway
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kwetter Gateway v1"));
+
+                try
+                {
+                    if (this.runSeeder)
+                    {
+                        using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                        {
+                            var seeder = serviceScope.ServiceProvider.GetService<KwetterSeeder>();
+                            Task.Run(async () =>
+                            {
+                                await seeder.RunAll(this.usersToSeed).ConfigureAwait(false);
+                            });
+                        }
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    // oops...
+                }
+
             }
 
             app.UseHttpsRedirection();
