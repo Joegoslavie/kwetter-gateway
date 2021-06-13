@@ -36,14 +36,20 @@ namespace Kwetter.UserGateway.Controllers
             this.manager = manager;
         }
 
+        /// <summary>
+        /// Get timeline of the currently signed in user in this context.
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("timeline")]
-        public async Task<IActionResult> Timeline()
+        public async Task<IActionResult> GetTimeline(int page = 1, int amount = 25)
         {
             try
             {
                 var identity = base.GetAuthenticatedUser();
-                var tweets = await this.manager.GetTimeline(identity.Id);
+                var tweets = await this.manager.GetTimelineById(identity.Id, page, amount);
                 return Ok(tweets);
             }
             catch (Exception ex)
@@ -52,26 +58,19 @@ namespace Kwetter.UserGateway.Controllers
             }
         }
 
+        /// <summary>
+        /// Get tweets by username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="page"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get(string username)
+        public async Task<IActionResult> GetByUsername(string username, int page = 1, int amount = 50)
         {
             try
             {
-                var tweets = await this.manager.GetTweetsByUsername(username).ConfigureAwait(false);
-                return Ok(tweets);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Get(int userId)
-        {
-            try
-            {
-                var tweets = await this.manager.GetTweetsById(userId).ConfigureAwait(false);
+                var tweets = await this.manager.GetTweetsByUsername(username, page, amount).ConfigureAwait(false);
                 return Ok(tweets);
             }
             catch (Exception ex)
@@ -98,7 +97,7 @@ namespace Kwetter.UserGateway.Controllers
 
         [HttpPost]
         [Route("post")]
-        public async Task<IActionResult> Like([FromBody] LikeTweetViewModel model)
+        public async Task<IActionResult> LikeTweet([FromBody] LikeTweetViewModel model)
         {
             try
             {

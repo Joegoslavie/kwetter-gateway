@@ -23,38 +23,57 @@
         /// </summary>
         public TweetManager(TweetService tweetService, FollowingService followingService)
         {
-            // Todo, make analyser.
+            // Todo: handle different exceptions
             this.service = tweetService;
             this.followService = followingService;
         }
 
         public async Task<Tweet> Place(int userId, string tweetContent)
         {
-            return await this.service.Place(userId, tweetContent).ConfigureAwait(false);
+            try
+            {
+                return await this.service.Place(userId, tweetContent).ConfigureAwait(false);
+            }
+            catch (Exception) { throw; }
         }
 
         public async Task<bool> ToggleLike(int userId, int tweetId)
         {
-            return await this.service.ToggleLike(userId, tweetId).ConfigureAwait(false);
+            try
+            {
+                return await this.service.ToggleLike(userId, tweetId).ConfigureAwait(false);
+            }
+            catch (Exception) { throw; }
         }
 
-        public async Task<List<Tweet>> GetTweetsById(int userId)
+        public async Task<List<Tweet>> GetTweetsById(int userId, int page, int amount)
         {
-            var tweets = await this.service.GetTweets(userId).ConfigureAwait(false);
-            return tweets.ToList();
+            try
+            {
+                IEnumerable<Tweet> tweets = await this.service.GetTweets(userId, page, amount).ConfigureAwait(false);
+                return tweets.ToList();
+            }
+            catch (Exception) { throw; }
         }
 
-        public async Task<List<Tweet>> GetTweetsByUsername(string username)
+        public async Task<List<Tweet>> GetTweetsByUsername(string username, int page, int amount)
         {
-            var tweets = await this.service.GetTweets(username).ConfigureAwait(false);
-            return tweets.ToList();
+            try {
+                IEnumerable<Tweet> tweets = await this.service.GetTweets(username, page, amount).ConfigureAwait(false);
+                return tweets.ToList();
+            }
+            catch (Exception) { throw; }
         }
 
-        public async Task<List<Tweet>> GetTimeline(int userId)
+        public async Task<List<Tweet>> GetTimelineById(int userId, int page, int amount)
         {
-            var followingIds = await this.followService.FetchIds(userId).ConfigureAwait(false);
-            var tweets = await this.service.GetTimeline(followingIds[FollowType.Following]).ConfigureAwait(false);
-            return tweets.ToList();
+            try
+            {
+                Dictionary<FollowType, List<int>> followingIds = await this.followService.FetchIds(userId).ConfigureAwait(false);
+                IEnumerable<Tweet> tweets = await this.service.GetTimeline(followingIds[FollowType.Following], page, amount).ConfigureAwait(false);
+                return tweets.ToList();
+            }
+            catch (Exception) { throw; }
         }
     }
 }

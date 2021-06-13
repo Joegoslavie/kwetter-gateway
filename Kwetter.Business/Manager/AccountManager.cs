@@ -50,7 +50,7 @@
         }
 
         /// <summary>
-        /// Retrieves the profile of the passed <paramref name="account"/>. Additionally, based on the extra arguments more data
+        /// Retrieves the account of the passed <paramref name="account"/>. Additionally, based on the extra arguments more data
         /// is retrieved such as tweets, following and followers profiles. 
         /// </summary>
         /// <param name="account"></param>
@@ -58,7 +58,7 @@
         /// <param name="withFollowings">Indicates if the following/follower properties should be retrieved.</param>
         /// <param name="includeBlocked">Indicates if the blocked users should be retrieved.</param>
         /// <returns><see cref="Profile"/> of the passed <see cref="Account"/> parameter.</returns>
-        public async Task<Profile> GetProfile(
+        public async Task<Profile> ConstructAccount(
             Account account,
             bool includeTweets = false,
             bool withFollowings = false,
@@ -70,7 +70,7 @@
 
                 if (includeTweets)
                 {
-                    var tweets = await this.tweetService.GetTweets(account.Id).ConfigureAwait(false);
+                    var tweets = await this.tweetService.GetTweets(account.Id, 1, 50).ConfigureAwait(false);
                     profile.Tweets = tweets.ToList();
                 }
 

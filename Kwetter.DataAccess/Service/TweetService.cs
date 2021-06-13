@@ -33,19 +33,20 @@
         /// Retrieves the tweets created by the passed <paramref name="userId"/>.
         /// </summary>
         /// <param name="userId">User id.</param>
+        /// <param name="page">User id.</param>
         /// <param name="amount">Amount of tweets to retrieve.</param>
         /// <returns>List of <see cref="Tweet"/>s.</returns>
-        public async Task<IEnumerable<Tweet>> GetTweets(int userId, int amount = 150)
+        public async Task<IEnumerable<Tweet>> GetTweets(int userId, int page, int amount)
         {
             var response = await this.TweetClientCall(async client =>
             {
-                return await client.GetTweetsByUserIdAsync(new TweetRequest { UserId = userId, });
+                return await client.GetTweetsByUserIdAsync(new TweetRequest 
+                { 
+                    UserId = userId,
+                    Page = page,
+                    Amount = amount,
+                });
             });
-
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
-            }
 
             return response.Tweets.Select(t => TweetFactory.Parse(t));
         }
@@ -56,17 +57,17 @@
         /// <param name="username">User name.</param>
         /// <param name="amount">Amount of tweets to retrieve.</param>
         /// <returns>List of <see cref="Tweet"/>s.</returns>
-        public async Task<IEnumerable<Tweet>> GetTweets(string username, int amount = 150)
+        public async Task<IEnumerable<Tweet>> GetTweets(string username, int page, int amount)
         {
             var response = await this.TweetClientCall(async client =>
             {
-                return await client.GetTweetsByUserIdAsync(new TweetRequest { Username = username, });
+                return await client.GetTweetsByUserIdAsync(new TweetRequest 
+                { 
+                    Username = username, 
+                    Page = page,
+                    Amount = amount,
+                });
             });
-
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
-            }
 
             return response.Tweets.Select(t => TweetFactory.Parse(t));
         }
@@ -83,12 +84,7 @@
                 return await client.ToggleLikeAsync(new TweetOperationRequest { UserId = userId, TweetId = tweetId, });
             });
 
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
-            }
-
-            return true;
+            return response.Status;
         }
 
         /// <summary>
@@ -104,11 +100,6 @@
                 return await client.PlaceTweetAsync(new PlaceTweetRequest { UserId = userId, Content = message, });
             });
 
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
-            }
-
             return TweetFactory.Parse(response.Tweets.FirstOrDefault());
         }
 
@@ -117,22 +108,21 @@
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<List<Tweet>> GetTimeline(List<int> userIds)
+        public async Task<IEnumerable<Tweet>> GetTimeline(List<int> userIds, int page, int amount)
         {
             var response = await this.TweetClientCall(async client =>
             {
-                var request = new TweetRequest();
-                request.UserIds.AddRange(userIds);
+                var request = new TweetRequest
+                {
+                    Page = page,
+                    Amount = amount,
+                };
 
+                request.UserIds.AddRange(userIds);
                 return await client.GetTweetsByUserIdsAsync(request);
             });
 
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
-            }
-
-            return response.Tweets.Select(t => TweetFactory.Parse(t)).ToList();
+            return response.Tweets.Select(t => TweetFactory.Parse(t));
         }
 
         /// <summary>

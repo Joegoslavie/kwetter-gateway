@@ -52,7 +52,7 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidatePassword(model.Password);
 
                 var account = await this.authManager.SignIn(model.Username, model.Password).ConfigureAwait(false);
-                account.Profile = await this.accountManager.GetProfile(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
+                account.Profile = await this.accountManager.ConstructAccount(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
 
                 var accountModel = new AccountViewModel(account);
                 return Ok(new AuthenticationResultModel(accountModel));
@@ -82,7 +82,7 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidatePassword(model.Password, model.PasswordRepeated);
 
                 var account = await this.authManager.Register(model.Username, model.Password, email: model.Email).ConfigureAwait(false);
-                account.Profile = await this.accountManager.GetProfile(account, includeTweets: false, withFollowings: false).ConfigureAwait(false);
+                account.Profile = await this.accountManager.ConstructAccount(account, includeTweets: false, withFollowings: false).ConfigureAwait(false);
                 return Ok(account);
             }
             catch (AuthenticateException exception)
