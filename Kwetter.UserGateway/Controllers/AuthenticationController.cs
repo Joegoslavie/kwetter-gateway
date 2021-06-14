@@ -52,6 +52,8 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidatePassword(model.Password);
 
                 var account = await this.authManager.SignIn(model.Username, model.Password).ConfigureAwait(false);
+                await Task.Delay(TimeSpan.FromSeconds(2)).ConfigureAwait(false);
+
                 account.Profile = await this.accountManager.ConstructAccount(account, includeTweets: true, withFollowings: true).ConfigureAwait(false);
 
                 var accountModel = new AccountViewModel(account);

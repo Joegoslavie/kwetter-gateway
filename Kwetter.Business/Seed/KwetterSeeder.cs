@@ -36,6 +36,8 @@
         public async Task RunAll(int userAmount)
         {
              var accounts = await this.SeedUsers(userAmount).ConfigureAwait(false);
+            await this.SeedTweets(accounts, 5).ConfigureAwait(false);
+
             // wait a few seconds for Kafka just to be sure.
             await Task.Delay(TimeSpan.FromSeconds(3));
 
@@ -89,7 +91,8 @@
             try
             {
                 await Task.WhenAll(newUsers).ConfigureAwait(false);
-                return newUsers.Select(x => x.Result).ToList();
+                var accounts = newUsers.Select(x => x.Result).ToList();
+                return accounts;
             }
             catch (Exception ex)
             {
@@ -131,15 +134,8 @@
                 {
                     for (int i = 0; i < tweetsPerUser; i++)
                     {
-                        if (random.Next(1, 15) == 6)
-                        {
-                            var randomUser = accounts.Where(x => x.Id != acc.Id).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
-                            tasks.Add(this.tweetManager.Place(1, $"Hey there @{randomUser?.Username} what are you doing??"));
-                        }
-                        else
-                        {
-                            tasks.Add(this.tweetManager.Place(acc.Id, $"Some random tweet..."));
-                        }
+                        var randomUser = accounts.Where(x => x.Id != acc.Id).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+                        tasks.Add(this.tweetManager.Place(acc.Id, Lorem.Sentence(20)));
                     }
                 }
 
@@ -149,24 +145,6 @@
             {
                 Console.WriteLine(ex);
             }
-
-
-            //for (int i = 0; i < accounts.Count; i++)
-            //{
-            //    for (int y = 0; y < tweetsPerUser; y++)
-            //    {
-            //        tasks.Add(this.tweetManager.Place(accounts[i].Id, Lorem.Sentence(random.Next(5, 25))));
-            //    }
-            //}
-
-            //try
-            //{
-            //    await Task.WhenAll(tasks);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Exception occured while seeding tweets {ex.Message}");
-            //}
         }
 
     }
