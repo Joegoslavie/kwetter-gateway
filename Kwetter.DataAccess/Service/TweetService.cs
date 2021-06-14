@@ -6,9 +6,9 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Microservice.TweetGRPCService;
     using Grpc.Net.Client;
     using Kwetter.DataAccess.Factory;
+    using Microservice.TweetGRPCService;
 
     /// <summary>
     /// Tweet service.

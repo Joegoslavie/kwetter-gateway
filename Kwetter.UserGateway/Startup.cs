@@ -20,7 +20,7 @@ namespace Kwetter.UserGateway
     {
         readonly string corsPolicyName = "kwetterCorsPolicy";
         private readonly bool runSeeder = false;
-        private readonly int usersToSeed = 10;
+        private readonly int usersToSeed = 5;
 
         /// <summary>
         /// Configuration instance.

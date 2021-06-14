@@ -44,7 +44,7 @@ namespace Kwetter.Business.Manager
             var followers = this.profileService.GetMultiple(followData[DataAccess.Model.Enum.FollowType.Followers]);
             var following = this.profileService.GetMultiple(followData[DataAccess.Model.Enum.FollowType.Following]);
 
-            var tweetReq = this.tweetService.GetTweets(username, 50);
+            var tweetReq = this.tweetService.GetTweets(username, 1, 50);
             await Task.WhenAll(tweetReq, followers, following).ConfigureAwait(false);
 
             profile.Tweets = tweetReq.Result.ToList().OrderByDescending(x => x.CreatedAt).ToList();

@@ -35,14 +35,14 @@
 
         public async Task RunAll(int userAmount)
         {
-            var accounts = await this.SeedUsers(userAmount).ConfigureAwait(false);
+             var accounts = await this.SeedUsers(userAmount).ConfigureAwait(false);
             // wait a few seconds for Kafka just to be sure.
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(3));
 
             accounts = await this.SeedUpdateProfile(accounts).ConfigureAwait(false);
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(3));
 
-            await this.SeedTweets(accounts, 5).ConfigureAwait(false);
+            await this.SeedTweets(accounts, 3).ConfigureAwait(false);
             await this.SeedFollowers(accounts).ConfigureAwait(false);
 
             Console.WriteLine($"Seeded {userAmount} Kwetter users");
@@ -124,22 +124,49 @@
         {
             var random = new Random();
             var tasks = new List<Task>();
-            for (int i = 0; i < accounts.Count; i++)
-            {
-                for (int y = 0; y < tweetsPerUser; y++)
-                {
-                    tasks.Add(this.tweetManager.Place(accounts[i].Id, Lorem.Sentence(random.Next(5, 25))));
-                }
-            }
 
             try
             {
-                await Task.WhenAll(tasks);
+                foreach (var acc in accounts)
+                {
+                    for (int i = 0; i < tweetsPerUser; i++)
+                    {
+                        if (random.Next(1, 15) == 6)
+                        {
+                            var randomUser = accounts.Where(x => x.Id != acc.Id).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+                            tasks.Add(this.tweetManager.Place(1, $"Hey there @{randomUser?.Username} what are you doing??"));
+                        }
+                        else
+                        {
+                            tasks.Add(this.tweetManager.Place(acc.Id, $"Some random tweet..."));
+                        }
+                    }
+                }
+
+                await Task.WhenAll(tasks).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception occured while seeding tweets {ex.Message}");
+                Console.WriteLine(ex);
             }
+
+
+            //for (int i = 0; i < accounts.Count; i++)
+            //{
+            //    for (int y = 0; y < tweetsPerUser; y++)
+            //    {
+            //        tasks.Add(this.tweetManager.Place(accounts[i].Id, Lorem.Sentence(random.Next(5, 25))));
+            //    }
+            //}
+
+            //try
+            //{
+            //    await Task.WhenAll(tasks);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Exception occured while seeding tweets {ex.Message}");
+            //}
         }
 
     }
