@@ -1,6 +1,7 @@
 ﻿using Kwetter.Business.Manager;
 using Kwetter.UserGateway.Attribute;
 using Kwetter.UserGateway.VIewModels;
+using Kwetter.UserGateway.VIewModels.Account;
 using Kwetter.UserGateway.VIewModels.Tweet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -49,8 +50,8 @@ namespace Kwetter.UserGateway.Controllers
             try
             {
                 var identity = base.GetAuthenticatedUser();
-                var tweets = await this.manager.GetTimelineById(identity.Id, page, amount);
-                return Ok(tweets);
+                var tweets = await this.manager.GetTimelineById(identity.Id, page, amount).ConfigureAwait(false);
+                return Ok(tweets.Select(x => new TweetViewModel(x)));
             }
             catch (Exception ex)
             {
@@ -71,7 +72,7 @@ namespace Kwetter.UserGateway.Controllers
             try
             {
                 var tweets = await this.manager.GetTweetsByUsername(username, page, amount).ConfigureAwait(false);
-                return Ok(tweets);
+                return Ok(tweets.Select(x => new TweetViewModel(x)));
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace Kwetter.UserGateway.Controllers
             {
                 var identity = base.GetAuthenticatedUser();
                 var tweet = await this.manager.Place(identity.Id, model.Content).ConfigureAwait(false);
-                return Ok(tweet);
+                return Ok(new TweetViewModel(tweet));
             }
             catch (Exception ex)
             {

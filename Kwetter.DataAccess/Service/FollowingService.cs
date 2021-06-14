@@ -91,12 +91,7 @@
                 return await client.ToggleFollowAsync(new FollowRequest { UserId = userId, FollowingId = followId });
             });
 
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
-            }
-
-            return response.Message == "Following user" ? true : false;
+            return response.Status;
         }
 
         /// <summary>
@@ -114,12 +109,7 @@
                 return await client.ToggleBlockAsync(new BlockRequest { UserId = userId, BlockId = blockId });
             });
 
-            if (!response.Status)
-            {
-                throw new Exception(response.Message);
-            }
-
-            return response.Message == "Blocked user" ? true : false;
+            return response.Status;
         }
 
         /// <summary>

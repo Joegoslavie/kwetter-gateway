@@ -34,10 +34,7 @@ namespace Kwetter.UserGateway.Controllers
         {
             var user = base.GetAuthenticatedUser();
             bool result = await this.manager.ToggleFollow(user.Id, model.FollowId).ConfigureAwait(false);
-            if (result)
-                return Ok("Followed user");
-            else
-                return Ok("Unfollowed user");
+            return Ok(result);
         }
 
         [HttpGet]

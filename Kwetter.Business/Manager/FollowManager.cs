@@ -39,7 +39,11 @@ namespace Kwetter.Business.Manager
 
         public async Task<bool> ToggleFollow(int id, int followId)
         {
-            return await this.followService.ToggleFollow(id, followId).ConfigureAwait(false);
+            try
+            {
+                return await this.followService.ToggleFollow(id, followId).ConfigureAwait(false);
+            }
+            catch (Exception) { throw; }
         }
     }
 }

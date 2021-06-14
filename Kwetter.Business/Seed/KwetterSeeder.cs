@@ -36,7 +36,6 @@
         public async Task RunAll(int userAmount)
         {
              var accounts = await this.SeedUsers(userAmount).ConfigureAwait(false);
-            await this.SeedTweets(accounts, 5).ConfigureAwait(false);
 
             // wait a few seconds for Kafka just to be sure.
             await Task.Delay(TimeSpan.FromSeconds(3));
@@ -44,7 +43,7 @@
             accounts = await this.SeedUpdateProfile(accounts).ConfigureAwait(false);
             await Task.Delay(TimeSpan.FromSeconds(3));
 
-            await this.SeedTweets(accounts, 3).ConfigureAwait(false);
+            //await this.SeedTweets(accounts, 10).ConfigureAwait(false);
             await this.SeedFollowers(accounts).ConfigureAwait(false);
 
             Console.WriteLine($"Seeded {userAmount} Kwetter users");
@@ -52,19 +51,19 @@
 
         public async Task SeedFollowers(List<Account> accounts)
         {
-            var tasks = new List<Task>();
-            var tempAccounts = new List<Account>(accounts);
-
-            foreach (var account in accounts)
-            {
-                var currentId = account.Id;
-                var ids = tempAccounts.OrderBy(x => x.Username).Take(accounts.Count / 2).Where(x => x.Id != currentId).Select(a => a.Id).ToList();
-                tasks.AddRange(ids.Select(x => this.followManager.ToggleFollow(currentId, x)));
-            }
-
             try
             {
-                await Task.WhenAll(tasks).ConfigureAwait(false);
+                var tempAccounts = new List<Account>(accounts);
+
+                foreach (var account in accounts)
+                {
+                    var currentId = account.Id;
+                    var tasks = new List<Task>();
+
+                    var ids = tempAccounts.Where(x => x.Id != currentId).Select(a => a.Id).ToList();
+                    tasks.AddRange(ids.Select(x => this.followManager.ToggleFollow(currentId, x)));
+                    await Task.WhenAll(tasks).ConfigureAwait(false);
+                }
             }
             catch (Exception ex)
             {
@@ -126,20 +125,28 @@
         public async Task SeedTweets(List<Account> accounts, int tweetsPerUser)
         {
             var random = new Random();
-            var tasks = new List<Task>();
-
             try
             {
                 foreach (var acc in accounts)
                 {
+                    var tasks = new List<Task>();
+
                     for (int i = 0; i < tweetsPerUser; i++)
                     {
                         var randomUser = accounts.Where(x => x.Id != acc.Id).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
-                        tasks.Add(this.tweetManager.Place(acc.Id, Lorem.Sentence(20)));
-                    }
-                }
+                        if(random.Next(0, 3) == 1)
+                        {
+                            tasks.Add(this.tweetManager.Place(acc.Id, $"My mention to @{randomUser.Username}"));
+                        }
+                        else
+                        {
+                            tasks.Add(this.tweetManager.Place(acc.Id, Lorem.Sentence(20)));
+                        }
 
-                await Task.WhenAll(tasks).ConfigureAwait(false);
+                    }
+
+                    await Task.WhenAll(tasks).ConfigureAwait(false);
+                }
             }
             catch (Exception ex)
             {
