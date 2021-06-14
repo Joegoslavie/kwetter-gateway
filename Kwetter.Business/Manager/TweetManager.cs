@@ -75,5 +75,21 @@
             }
             catch (Exception) { throw; }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public async Task<List<Tweet>> GetRandomTimeline(int page, int amount)
+        {
+            try
+            {
+                var tweets = await this.service.RandomTimeline(page, amount).ConfigureAwait(false);
+                return tweets.ToList();
+            }
+            catch (Exception) { throw; }
+        }
     }
 }

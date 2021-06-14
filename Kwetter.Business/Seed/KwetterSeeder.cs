@@ -40,11 +40,8 @@
             // wait a few seconds for Kafka just to be sure.
             await Task.Delay(TimeSpan.FromSeconds(3));
 
-            accounts = await this.SeedUpdateProfile(accounts).ConfigureAwait(false);
-            await Task.Delay(TimeSpan.FromSeconds(3));
-
-            //await this.SeedTweets(accounts, 10).ConfigureAwait(false);
-            await this.SeedFollowers(accounts).ConfigureAwait(false);
+            await this.SeedUpdateProfile(accounts).ConfigureAwait(false);
+            await this.SeedTweets(accounts, 10).ConfigureAwait(false);
 
             Console.WriteLine($"Seeded {userAmount} Kwetter users");
         }
@@ -133,9 +130,9 @@
 
                     for (int i = 0; i < tweetsPerUser; i++)
                     {
-                        var randomUser = accounts.Where(x => x.Id != acc.Id).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
-                        if(random.Next(0, 3) == 1)
+                        if(random.Next(0, 5) == 1)
                         {
+                            var randomUser = accounts.Where(x => x.Id != acc.Id).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
                             tasks.Add(this.tweetManager.Place(acc.Id, $"My mention to @{randomUser.Username}"));
                         }
                         else

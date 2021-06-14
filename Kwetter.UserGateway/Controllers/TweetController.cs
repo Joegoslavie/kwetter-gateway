@@ -60,6 +60,28 @@ namespace Kwetter.UserGateway.Controllers
         }
 
         /// <summary>
+        /// Get timeline of the currently signed in user in this context.
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("timeline/random")]
+        public async Task<IActionResult> GetRandomTimeline(int page = 1, int amount = 25)
+        {
+            try
+            {
+                var identity = base.GetAuthenticatedUser();
+                var tweets = await this.manager.GetRandomTimeline(page, amount).ConfigureAwait(false);
+                return Ok(tweets.Select(x => new TweetViewModel(x)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Get tweets by username.
         /// </summary>
         /// <param name="username"></param>

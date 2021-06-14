@@ -88,6 +88,11 @@
                     profile.Followers = followerProfiles.Result.ToList();
                     profile.Following = followingProfiles.Result.ToList();
                     account.Timeline = timeline.Result.ToList();
+
+                    if (!account.Timeline.Any())
+                    {
+                        account.Timeline = await this.tweetService.RandomTimeline(1, 30).ConfigureAwait(false);
+                    }
                 }
 
                 if (includeBlocked)

@@ -87,6 +87,16 @@
             return response.Status;
         }
 
+        public async Task<List<Tweet>> RandomTimeline(int page, int amount)
+        {
+            var response = await this.TweetClientCall(async client =>
+            {
+                return await client.GetRandomTimelineAsync(new TweetRequest { Page = page, Amount = amount });
+            });
+
+            return response.Tweets.Select(x => TweetFactory.Parse(x)).ToList();
+        }
+
         /// <summary>
         /// Places a new tweet in the microservice backend.
         /// </summary>
