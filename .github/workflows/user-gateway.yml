@@ -1,4 +1,4 @@
-name: AuthenticationService
+name: UserGateway
 
 on:
   push:
