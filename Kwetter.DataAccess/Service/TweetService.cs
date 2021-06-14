@@ -51,6 +51,21 @@
             return response.Tweets.Select(t => TweetFactory.Parse(t));
         }
 
+        public async Task<IEnumerable<Tweet>> GetMentions(string username, int page, int amount)
+        {
+            var response = await this.TweetClientCall(async client =>
+            {
+                return await client.GetMentionsByUsernameAsync(new TweetRequest
+                {
+                    Username = username,
+                    Page = page,
+                    Amount = amount,
+                });
+            });
+
+            return response.Tweets.Select(t => TweetFactory.Parse(t));
+        }
+
         /// <summary>
         /// Retrieves the tweets created by the passed <paramref name="userId"/>.
         /// </summary>

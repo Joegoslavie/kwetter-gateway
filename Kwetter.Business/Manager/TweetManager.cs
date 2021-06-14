@@ -46,6 +46,16 @@
             catch (Exception) { throw; }
         }
 
+        public async Task<List<Tweet>> GetTweetsMentionedIn(string username, int page, int amount)
+        {
+            try
+            {
+                IEnumerable<Tweet> tweets = await this.service.GetMentions(username, page, amount).ConfigureAwait(false);
+                return tweets.ToList();
+            }
+            catch (Exception) { throw; }
+        }
+
         public async Task<List<Tweet>> GetTweetsById(int userId, int page, int amount)
         {
             try
