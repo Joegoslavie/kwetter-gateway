@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.UserGateway", "Kwetter.UserGateway\Kwetter.UserGateway.csproj", "{C1F3473E-403C-48F7-B57F-9326A670A03E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.ModerationGateway", "Kwetter.ModerationGateway\Kwetter.ModerationGateway.csproj", "{69D0CBD6-6806-462A-8AA5-AF7072228D12}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.Business", "Kwetter.Business\Kwetter.Business.csproj", "{51F6CA66-3D31-4DE7-9745-04E46118E9BA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.DataAccess", "Kwetter.DataAccess\Kwetter.DataAccess.csproj", "{86B536E9-307D-4D1F-B3D2-9419C9DF3B99}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.UserGateway", "Kwetter.UserGateway\Kwetter.UserGateway.csproj", "{5C604309-DA5E-4C75-B374-02F8BCDAFC5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{4249277F-CFAE-45FC-964D-2B685B684BE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C1F3473E-403C-48F7-B57F-9326A670A03E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1F3473E-403C-48F7-B57F-9326A670A03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1F3473E-403C-48F7-B57F-9326A670A03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1F3473E-403C-48F7-B57F-9326A670A03E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69D0CBD6-6806-462A-8AA5-AF7072228D12}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51F6CA66-3D31-4DE7-9745-04E46118E9BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51F6CA66-3D31-4DE7-9745-04E46118E9BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51F6CA66-3D31-4DE7-9745-04E46118E9BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,9 +25,17 @@ Global
 		{86B536E9-307D-4D1F-B3D2-9419C9DF3B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86B536E9-307D-4D1F-B3D2-9419C9DF3B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86B536E9-307D-4D1F-B3D2-9419C9DF3B99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C604309-DA5E-4C75-B374-02F8BCDAFC5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C604309-DA5E-4C75-B374-02F8BCDAFC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C604309-DA5E-4C75-B374-02F8BCDAFC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C604309-DA5E-4C75-B374-02F8BCDAFC5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51F6CA66-3D31-4DE7-9745-04E46118E9BA} = {4249277F-CFAE-45FC-964D-2B685B684BE4}
+		{86B536E9-307D-4D1F-B3D2-9419C9DF3B99} = {4249277F-CFAE-45FC-964D-2B685B684BE4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4739D823-2D22-4356-842A-BD459703A0C7}
