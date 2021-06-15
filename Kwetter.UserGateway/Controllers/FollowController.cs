@@ -29,17 +29,16 @@ namespace Kwetter.UserGateway.Controllers
         }
 
         [HttpPost]
-        [Route("follow")]
+        [Route("toggle")]
         public async Task<IActionResult> FollowOrUnfollow([FromBody] FollowViewModel model)
         {
             var user = base.GetAuthenticatedUser();
-            bool result = await this.manager.ToggleFollow(user.Id, model.FollowId).ConfigureAwait(false);
-            return Ok(result);
+            return Ok(await this.manager.ToggleFollow(user.Id, model.Username).ConfigureAwait(false));
         }
 
         [HttpGet]
         [Route("followers")]
-        public async Task<IActionResult> GetFollowers()
+        public async Task<IActionResult> GetFollowers(string username, int page = 1, int amount = 1)
         {
             var user = base.GetAuthenticatedUser();
             var profile = await this.manager.FullProfile(user.Id).ConfigureAwait(false);
@@ -48,7 +47,7 @@ namespace Kwetter.UserGateway.Controllers
 
         [HttpGet]
         [Route("following")]
-        public async Task<IActionResult> GetFollowing()
+        public async Task<IActionResult> GetFollowing(string username, int page = 1, int amount = 1)
         {
             var user = base.GetAuthenticatedUser();
             var profile = await this.manager.FullProfile(user.Id).ConfigureAwait(false);

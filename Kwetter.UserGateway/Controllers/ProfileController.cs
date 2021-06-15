@@ -49,22 +49,6 @@ namespace Kwetter.UserGateway.Controllers
         }
 
         [HttpPost]
-        [Route("follow")]
-        public async Task<IActionResult> Follow(int userId)
-        {
-            try
-            {
-                var currentUser = base.GetAuthenticatedUser();
-                var result = await this.followManager.ToggleFollow(currentUser.Id, userId).ConfigureAwait(false);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody] UpdateProfileViewModel model)
         {

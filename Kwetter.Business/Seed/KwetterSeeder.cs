@@ -58,7 +58,7 @@
                     var tasks = new List<Task>();
 
                     var ids = tempAccounts.Where(x => x.Id != currentId).Select(a => a.Id).ToList();
-                    tasks.AddRange(ids.Select(x => this.followManager.ToggleFollow(currentId, x)));
+                    //tasks.AddRange(ids.Select(x => this.followManager.ToggleFollow(currentId, x)));
                     await Task.WhenAll(tasks).ConfigureAwait(false);
                 }
             }

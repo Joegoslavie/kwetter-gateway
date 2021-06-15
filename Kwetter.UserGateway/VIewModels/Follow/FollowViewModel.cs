@@ -7,6 +7,6 @@ namespace Kwetter.UserGateway.VIewModels.Follow
 {
     public class FollowViewModel
     {
-        public int FollowId { get; set; }
+        public string Username { get; set; }
     }
 }

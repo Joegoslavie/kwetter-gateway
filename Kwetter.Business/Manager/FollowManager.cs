@@ -37,11 +37,19 @@ namespace Kwetter.Business.Manager
             return profile;
         }
 
-        public async Task<bool> ToggleFollow(int id, int followId)
+        public async Task<List<Profile>> GetFollowers(string username, int page, int amount)
+        {
+            var profile = await this.profileService.GetProfileByUsername(username).ConfigureAwait(false);
+            var followData = await this.followService.FetchIds(profile.UserId).ConfigureAwait(false);
+            return null;
+        }
+
+        public async Task<bool> ToggleFollow(int id, string username)
         {
             try
             {
-                return await this.followService.ToggleFollow(id, followId).ConfigureAwait(false);
+                var profile = await this.profileService.GetProfileByUsername(username).ConfigureAwait(false);
+                return await this.followService.ToggleFollow(id, profile.UserId).ConfigureAwait(false);
             }
             catch (Exception) { throw; }
         }
