@@ -11,14 +11,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.UserGateway", "Kwet
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{4249277F-CFAE-45FC-964D-2B685B684BE4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{3BECEE95-DD5A-4304-9CCA-3FF793E54FE4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{B39E4FAE-D6FC-408A-9401-78CAD89BEA68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{D19D284C-1620-4C3C-8934-74DAA5B99F77}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigFrontEnd.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigFrontEnd.yml
-		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigGateway.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigGateway.yml
-		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigMicroservices.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigMicroservices.yml
-		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigSinglePodMicroservices.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigSinglePodMicroservices.yml
-		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigStorage.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigStorage.yml
-		..\..\..\..\Desktop\Kubernetes Config\K8s-database-config.yml = ..\..\..\..\Desktop\Kubernetes Config\K8s-database-config.yml
+		K8s\Database\kwetter-database.yml = K8s\Database\kwetter-database.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Namespace", "Namespace", "{DCE037D2-3DB8-4473-AAA9-CE38C194E399}"
+	ProjectSection(SolutionItems) = preProject
+		K8s\Namespace\kwetter-namespace.yml = K8s\Namespace\kwetter-namespace.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{67ADA6C8-F1BF-46F2-9FBB-AD64F785A3A5}"
+	ProjectSection(SolutionItems) = preProject
+		K8s\Storage\kwetter-storage.yml = K8s\Storage\kwetter-storage.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kafka", "Kafka", "{50AE31ED-3511-4B72-AD58-77B91ED80998}"
+	ProjectSection(SolutionItems) = preProject
+		K8s\Kafka\kafka.yml = K8s\Kafka\kafka.yml
+		K8s\Kafka\zookeeper.yml = K8s\Kafka\zookeeper.yml
 	EndProjectSection
 EndProject
 Global
@@ -46,6 +59,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{51F6CA66-3D31-4DE7-9745-04E46118E9BA} = {4249277F-CFAE-45FC-964D-2B685B684BE4}
 		{86B536E9-307D-4D1F-B3D2-9419C9DF3B99} = {4249277F-CFAE-45FC-964D-2B685B684BE4}
+		{D19D284C-1620-4C3C-8934-74DAA5B99F77} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
+		{DCE037D2-3DB8-4473-AAA9-CE38C194E399} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
+		{67ADA6C8-F1BF-46F2-9FBB-AD64F785A3A5} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
+		{50AE31ED-3511-4B72-AD58-77B91ED80998} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4739D823-2D22-4356-842A-BD459703A0C7}

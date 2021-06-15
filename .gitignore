@@ -35,6 +35,8 @@ bld/
 *.VisualState.xml
 TestResult.xml
 
+K8s/Secrets/
+
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
