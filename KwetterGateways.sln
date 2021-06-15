@@ -11,6 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kwetter.UserGateway", "Kwet
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{4249277F-CFAE-45FC-964D-2B685B684BE4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{3BECEE95-DD5A-4304-9CCA-3FF793E54FE4}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigFrontEnd.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigFrontEnd.yml
+		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigGateway.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigGateway.yml
+		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigMicroservices.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigMicroservices.yml
+		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigSinglePodMicroservices.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigSinglePodMicroservices.yml
+		..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigStorage.yml = ..\..\..\..\Desktop\Kubernetes Config\AzureKubernetesConfigStorage.yml
+		..\..\..\..\Desktop\Kubernetes Config\K8s-database-config.yml = ..\..\..\..\Desktop\Kubernetes Config\K8s-database-config.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
