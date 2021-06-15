@@ -39,8 +39,13 @@ namespace Kwetter.Business.Manager
 
         public async Task<List<Profile>> GetFollowers(string username, int page, int amount)
         {
-            var profile = await this.profileService.GetProfileByUsername(username).ConfigureAwait(false);
-            var followData = await this.followService.FetchIds(profile.UserId).ConfigureAwait(false);
+            //var userIds = await this.followService
+            return null;
+        }
+
+        public async Task<List<Profile>> GetFollowing(string username, int page, int amount)
+        {
+            //var userIds = await this.followService
             return null;
         }
 

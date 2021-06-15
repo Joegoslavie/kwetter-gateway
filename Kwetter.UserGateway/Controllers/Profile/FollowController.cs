@@ -38,20 +38,30 @@ namespace Kwetter.UserGateway.Controllers
 
         [HttpGet]
         [Route("followers")]
-        public async Task<IActionResult> GetFollowers(string username, int page = 1, int amount = 1)
+        public async Task<IActionResult> GetFollowers(string username, int page = 1, int amount = 25)
         {
-            var user = base.GetAuthenticatedUser();
-            var profile = await this.manager.FullProfile(user.Id).ConfigureAwait(false);
-            return Ok(profile.Followers);
+            try
+            {
+                return Ok(await this.manager.GetFollowers(username, page, amount).ConfigureAwait(false));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("following")]
-        public async Task<IActionResult> GetFollowing(string username, int page = 1, int amount = 1)
+        public async Task<IActionResult> GetFollowing(string username, int page = 1, int amount = 25)
         {
-            var user = base.GetAuthenticatedUser();
-            var profile = await this.manager.FullProfile(user.Id).ConfigureAwait(false);
-            return Ok(profile.Following);
+            try
+            {
+                return Ok(await this.manager.GetFollowing(username, page, amount).ConfigureAwait(false));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

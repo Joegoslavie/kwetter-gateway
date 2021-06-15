@@ -34,6 +34,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kafka", "Kafka", "{50AE31ED
 		K8s\Kafka\zookeeper.yml = K8s\Kafka\zookeeper.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C24DEC56-DCD2-47E9-878B-C2AFB364EF10}"
+	ProjectSection(SolutionItems) = preProject
+		K8s\Services\kwetter-authentication-service.yml = K8s\Services\kwetter-authentication-service.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{CCAC9725-12FA-4909-BD5F-D1ED7671E30C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +70,8 @@ Global
 		{DCE037D2-3DB8-4473-AAA9-CE38C194E399} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
 		{67ADA6C8-F1BF-46F2-9FBB-AD64F785A3A5} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
 		{50AE31ED-3511-4B72-AD58-77B91ED80998} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
+		{C24DEC56-DCD2-47E9-878B-C2AFB364EF10} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
+		{CCAC9725-12FA-4909-BD5F-D1ED7671E30C} = {B39E4FAE-D6FC-408A-9401-78CAD89BEA68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4739D823-2D22-4356-842A-BD459703A0C7}

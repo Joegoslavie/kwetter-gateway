@@ -1,25 +1,24 @@
-apiVersion: storage.k8s.io/v1
 kind: StorageClass
+apiVersion: storage.k8s.io/v1
 metadata:
-  name: azure-disk
+  name: kwetter-storage
   namespace: kwetter
 provisioner: kubernetes.io/azure-disk
+reclaimPolicy: Retain
 parameters:
-  storageaccounttype: Standard_LRS
+  storageaccounttype: Premium_LRS
   kind: Managed
-
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mssql-data
+  name: kwetter-db-volume-claim
   namespace: kwetter
-  annotations:
-    volume.beta.kubernetes.io/storage-class: azure-disk
 spec:
+  volumeMode: Filesystem
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 8Gi
+      storage: 5Gi
+  storageClassName: managed-premium

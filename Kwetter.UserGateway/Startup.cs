@@ -53,7 +53,7 @@ namespace Kwetter.UserGateway
             {
                 options.AddPolicy(name: corsPolicyName, builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
