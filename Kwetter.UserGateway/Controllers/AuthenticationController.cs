@@ -52,8 +52,6 @@ namespace Kwetter.UserGateway.Controllers
                 AuthenticationValidation.ValidatePassword(model.Password);
 
                 var account = await this.authManager.SignIn(model.Username, model.Password).ConfigureAwait(false);
-                await Task.Delay(TimeSpan.FromSeconds(2)).ConfigureAwait(false);
-
                 account.Profile = await this.accountManager.ConstructAccount(account, includeTweets: false, withFollowings: true).ConfigureAwait(false);
 
                 var accountModel = new AccountViewModel(account);
@@ -85,7 +83,9 @@ namespace Kwetter.UserGateway.Controllers
 
                 var account = await this.authManager.Register(model.Username, model.Password, email: model.Email).ConfigureAwait(false);
                 account.Profile = await this.accountManager.ConstructAccount(account, includeTweets: false, withFollowings: false).ConfigureAwait(false);
-                return Ok(account);
+
+                var accountModel = new AccountViewModel(account);
+                return Ok(new AuthenticationResultModel(accountModel));
             }
             catch (AuthenticateException exception)
             {

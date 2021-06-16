@@ -12,12 +12,12 @@ namespace Kwetter.Business.Manager
     {
         private readonly ProfileService profileService;
         private readonly TweetService tweetService;
-        private readonly FollowingService followService;
+        private readonly DataAccess.Service.FollowingService followService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TweetManager"/> class.
         /// </summary>
-        public ProfileManager(ProfileService profileService, TweetService tweetService, FollowingService followService)
+        public ProfileManager(ProfileService profileService, TweetService tweetService, DataAccess.Service.FollowingService followService)
         {
             // Todo, make analyser.
             this.profileService = profileService;
@@ -39,17 +39,12 @@ namespace Kwetter.Business.Manager
         public async Task<Profile> Get(string username)
         {
             var profile = await this.profileService.GetProfileByUsername(username).ConfigureAwait(false);
-            var followData = await this.followService.FetchIds(profile.UserId).ConfigureAwait(false);
-
-            var followers = this.profileService.GetMultiple(followData[DataAccess.Model.Enum.FollowType.Followers]);
-            var following = this.profileService.GetMultiple(followData[DataAccess.Model.Enum.FollowType.Following]);
-
             var tweetReq = this.tweetService.GetTweets(username, 1, 50);
-            await Task.WhenAll(tweetReq, followers, following).ConfigureAwait(false);
+            //await Task.WhenAll(tweetReq, followers, following).ConfigureAwait(false);
 
             profile.Tweets = tweetReq.Result.ToList().OrderByDescending(x => x.CreatedAt).ToList();
-            profile.Following = following.Result.ToList();
-            profile.Followers = followers.Result.ToList();
+            //profile.Following = following.Result.ToList();
+            //profile.Followers = followers.Result.ToList();
 
             return profile;
         }

@@ -76,7 +76,7 @@
         {
             var response = await this.TweetClientCall(async client =>
             {
-                return await client.GetTweetsByUserIdAsync(new TweetRequest 
+                return await client.GetTweetsByUsernameAsync(new TweetRequest 
                 { 
                     Username = username, 
                     Page = page,

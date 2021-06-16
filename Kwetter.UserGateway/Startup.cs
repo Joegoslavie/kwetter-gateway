@@ -38,7 +38,7 @@ namespace Kwetter.UserGateway
             
             services.AddSingleton<AppSettings>();
             services.AddTransient<AuthenticationService>();
-            services.AddTransient<FollowingService>();
+            services.AddTransient<DataAccess.Service.FollowingService>();
             services.AddTransient<ProfileService>();
             services.AddTransient<TweetService>();
 
@@ -53,7 +53,7 @@ namespace Kwetter.UserGateway
             {
                 options.AddPolicy(name: corsPolicyName, builder =>
                 {
-                    builder.AllowAnyOrigin()
+                    builder.WithOrigins("http://localhost:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();

@@ -77,17 +77,12 @@
                 // profile page CEES
                 if (withFollowings)
                 {
-                    var followData = await this.followService.FetchIds(account.Id).ConfigureAwait(false);
+                    var followers = this.followService.GetFollowersByUsername(account.Username, 1, 25);
+                    var following = this.followService.GetFollowingByUsername(account.Username, 1, 25);
+                    await Task.WhenAll(followers, following).ConfigureAwait(false);
 
-                    Task<IEnumerable<Profile>> followerProfiles = this.profileService.GetMultiple(followData[FollowType.Followers]);
-                    Task<IEnumerable<Profile>> followingProfiles = this.profileService.GetMultiple(followData[FollowType.Following]);
-                    Task<IEnumerable<Tweet>> timeline = this.tweetService.GetTimeline(followData[FollowType.Following], 1, 50);
-
-                    await Task.WhenAll(followerProfiles, followingProfiles, timeline).ConfigureAwait(false);
-
-                    profile.Followers = followerProfiles.Result.ToList();
-                    profile.Following = followingProfiles.Result.ToList();
-                    account.Timeline = timeline.Result.ToList();
+                    profile.Followers = followers.Result.ToList();
+                    profile.Following = following.Result.ToList();
 
                     if (!account.Timeline.Any())
                     {

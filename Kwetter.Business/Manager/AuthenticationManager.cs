@@ -63,9 +63,7 @@
             try
             {
                 this.logger.LogInformation($"Authenticating {username}");
-                var account = await this.authService.SignIn(username, password).ConfigureAwait(false);
-
-                return account;
+                return await this.authService.SignIn(username, password).ConfigureAwait(false);;
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound || ex.StatusCode == StatusCode.Unauthenticated)
             {

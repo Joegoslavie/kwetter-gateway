@@ -79,9 +79,7 @@
         {
             try
             {
-                Dictionary<FollowType, List<int>> followingIds = await this.followService.FetchIds(userId).ConfigureAwait(false);
-                IEnumerable<Tweet> tweets = await this.service.GetTimeline(followingIds[FollowType.Following], page, amount).ConfigureAwait(false);
-                return tweets.ToList();
+                return null;
             }
             catch (Exception) { throw; }
         }

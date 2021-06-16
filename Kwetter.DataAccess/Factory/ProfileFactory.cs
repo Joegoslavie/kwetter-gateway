@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Kwetter.DataAccess.Model;
+    using Kwetter.FollowingService;
     using Microservice.ProfileGRPCService;
 
     /// <summary>
@@ -26,6 +27,17 @@
             }
 
             return Parse(response.Profile);
+        }
+
+        internal static Profile Parse(ProfileFollowResponse response)
+        {
+            return new Profile
+            {
+                UserId = response.UserId,
+                Username = response.Username,
+                DisplayName = response.DisplayName,
+                AvatarUrl = response.AvatarUrl,
+            };
         }
 
         /// <summary>
