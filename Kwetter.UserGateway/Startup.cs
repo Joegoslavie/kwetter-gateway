@@ -50,16 +50,16 @@ namespace Kwetter.UserGateway
             services.AddTransient<FollowManager>();
             services.AddTransient<KwetterSeeder>();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: corsPolicyName, builder =>
-                { 
-                    builder.WithOrigins(this.config.GetValue<string>("FrontendUrl"))
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: corsPolicyName, builder =>
+            //    { 
+            //        builder.WithOrigins(this.config.GetValue<string>("FrontendUrl"))
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod()
+            //            .AllowCredentials();
+            //    });
+            //});
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -124,7 +124,12 @@ namespace Kwetter.UserGateway
             }
 
             app.UseRouting();
-            app.UseCors(this.corsPolicyName);
+            //app.UseCors(this.corsPolicyName);
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
