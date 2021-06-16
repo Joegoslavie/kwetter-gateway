@@ -52,8 +52,8 @@ namespace Kwetter.UserGateway
             services.AddCors(options =>
             {
                 options.AddPolicy(name: corsPolicyName, builder =>
-                {
-                    builder.WithOrigins("http://localhost:4200")
+                { 
+                    builder.WithOrigins(this.config.GetValue<string>("FrontendUrl"))
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
