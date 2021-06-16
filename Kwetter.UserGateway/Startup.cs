@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -122,8 +123,6 @@ namespace Kwetter.UserGateway
 
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseCors(this.corsPolicyName);
             app.UseAuthorization();
@@ -132,6 +131,8 @@ namespace Kwetter.UserGateway
             {
                 endpoints.MapControllers();
             });
+
+            Console.WriteLine("Kwetter API running");
         }
     }
 }
