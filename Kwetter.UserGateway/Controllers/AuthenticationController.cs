@@ -59,14 +59,17 @@ namespace Kwetter.UserGateway.Controllers
             }
             catch (AuthenticateException exception)
             {
+                this.logger.LogError(exception.Message, exception);
                 return BadRequest(new AuthenticationResultModel(exception.ErrroCode, exception.Message));
             }
             catch (ProfileException exception)
             {
+                this.logger.LogError(exception.Message, exception);
                 return BadRequest(new AuthenticationResultModel(false, exception.Message, null));
             }
             catch (Exception ex)
             {
+                this.logger.LogError(ex.Message, ex);
                 return BadRequest(new AuthenticationResultModel(false, "Oops.. something went wrong.", null));
             }
         }

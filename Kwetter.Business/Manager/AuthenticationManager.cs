@@ -67,6 +67,7 @@
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound || ex.StatusCode == StatusCode.Unauthenticated)
             {
+                this.logger.LogError(ex.Message, ex);
                 throw new AuthenticateException(KwetterError.Credentials, "Username and/or password incorrect", ex);
             }
             catch (RpcException ex)
