@@ -49,18 +49,6 @@ namespace Kwetter.UserGateway
             services.AddTransient<ProfileManager>();
             services.AddTransient<FollowManager>();
             services.AddTransient<KwetterSeeder>();
-
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(b =>
-                { 
-                    b.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
-            });
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -114,7 +102,11 @@ namespace Kwetter.UserGateway
             }
 
             app.UseRouting();
-            app.UseCors();
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
