@@ -73,5 +73,7 @@
         /// Gets or sets the blocked users.
         /// </summary>
         public List<Profile> Blocked { get; set; } = new List<Profile>();
+
+        public DateTime Since { get; set; }
     }
 }

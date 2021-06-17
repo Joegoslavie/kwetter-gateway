@@ -37,6 +37,7 @@
                 Username = response.Username,
                 DisplayName = response.DisplayName,
                 AvatarUrl = response.AvatarUrl,
+                //Since = new DateTime(response.sinc)
             };
         }
 
