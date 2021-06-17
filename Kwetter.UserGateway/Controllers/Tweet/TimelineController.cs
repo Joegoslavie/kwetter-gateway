@@ -32,7 +32,7 @@ namespace Kwetter.UserGateway.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTimeline(string username, int page = 1, int amount = 25)
+        public async Task<IActionResult> GetTimeline(string username, int page = 0, int amount = 25)
         {
             try
             {

@@ -45,7 +45,7 @@ namespace Kwetter.UserGateway.Controllers
         /// <param name="amount"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetByUsername(string username, int page = 1, int amount = 50)
+        public async Task<IActionResult> GetByUsername(string username, int page = 0, int amount = 50)
         {
             try
             {

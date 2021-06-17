@@ -50,23 +50,14 @@ namespace Kwetter.UserGateway
             services.AddTransient<FollowManager>();
             services.AddTransient<KwetterSeeder>();
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy(name: corsPolicyName, builder =>
-            //    { 
-            //        builder.WithOrigins(this.config.GetValue<string>("FrontendUrl"))
-            //            .AllowAnyHeader()
-            //            .AllowAnyMethod()
-            //            .AllowCredentials();
-            //    });
-            //});
-
-            services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "KwetterIO",
-                    Version = "1.0",
-                    Description = "Kwetter OpenAPI documentation."
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(b =>
+                { 
+                    b.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
 
@@ -120,24 +111,16 @@ namespace Kwetter.UserGateway
                 {
                     // oops...
                 }
-
             }
 
             app.UseRouting();
-            //app.UseCors(this.corsPolicyName);
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-
+            app.UseCors();
             app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-            Console.WriteLine("Kwetter API running");
         }
     }
 }
